@@ -1,0 +1,5 @@
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7\bin\Debug\IgraS15.exe
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7\bin\Debug\IgraS15.pdb
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7\obj\x86\Debug\Game15.csprojResolveAssemblyReference.cache
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7\obj\x86\Debug\IgraS15.exe
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7\obj\x86\Debug\IgraS15.pdb
