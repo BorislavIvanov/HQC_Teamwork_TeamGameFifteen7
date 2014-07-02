@@ -11,7 +11,7 @@
         static int x = 3;
         static int y = 3;
         static bool flag2 = true;
-        static int broqch;
+        static int countOfTotalMoves;
         static string[] topPlayersScores = new string[5];
         static int topCount = 0;
 
@@ -32,19 +32,20 @@
 
         static void Move(int number)
         {
-            int k = x, l = y;
+            int k = x;
+            int l = y;
             bool flag = true;
 
-            for (int i = 0; i < 4; i++)
+            for (int row = 0; row < 4; row++)
             {
                 if (flag)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int col = 0; col < 4; col++)
                     {
-                        if (a[i, j] == number)
+                        if (a[row, col] == number)
                         {
-                            k = i;
-                            l = j;
+                            k = row;
+                            l = col;
                             flag = false;
                             break;
                         }
@@ -69,27 +70,27 @@
                 a[x, y] = temp;
                 x = k;
                 y = l;
-                broqch++;
+                countOfTotalMoves++;
 
                 Console.WriteLine(" -------------");
 
-                for (int i = 0; i < 4; i++)
+                for (int row = 0; row < 4; row++)
                 {
                     Console.Write("| ");
 
-                    for (int j = 0; j < 4; j++)
+                    for (int col = 0; col < 4; col++)
                     {
-                        if (a[i, j] >= 10)
+                        if (a[row, col] >= 10)
                         {
-                            Console.Write("{0} ", a[i, j]);
+                            Console.Write("{0} ", a[row, col]);
                         }
-                        else if (a[i, j] == 0)
+                        else if (a[row, col] == 0)
                         {
                             Console.Write("   ");
                         }
                         else
                         {
-                            Console.Write(" {0} ", a[i, j]);
+                            Console.Write(" {0} ", a[row, col]);
                         }
                     }
 
@@ -106,13 +107,13 @@
             {
                 int n = 1;
 
-                for (int i = 0; i < 4; i++)
+                for (int row = 0; row < 4; row++)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int col = 0; col < 4; col++)
                     {
                         if (n <= 15)
                         {
-                            if (a[i, j] == n)
+                            if (a[row, col] == n)
                             {
                                 n++;
                             }
@@ -134,12 +135,12 @@
 
         static void startagain()
         {
-            broqch = 0;
-            Random r = new Random();
+            countOfTotalMoves = 0;
+            Random randomGenerator = new Random();
 
             for (int i = 0; i < 1000; i++)
             {
-                int n = r.Next(3);
+                int n = randomGenerator.Next(3);
 
                 if (n == 0)
                 {
@@ -223,23 +224,23 @@
 
             Console.WriteLine(" -------------");
 
-            for (int i = 0; i < 4; i++)
+            for (int row = 0; row < 4; row++)
             {
                 Console.Write("| ");
 
-                for (int j = 0; j < 4; j++)
+                for (int col = 0; col < 4; col++)
                 {
-                    if (a[i, j] >= 10)
+                    if (a[row, col] >= 10)
                     {
-                        Console.Write("{0} ", a[i, j]);
+                        Console.Write("{0} ", a[row, col]);
                     }
-                    else if (a[i, j] == 0)
+                    else if (a[row, col] == 0)
                     {
                         Console.Write("   ");
                     }
                     else
                     {
-                        Console.Write(" {0} ", a[i, j]);
+                        Console.Write(" {0} ", a[row, col]);
                     }
                 }
 
@@ -268,7 +269,7 @@
         {
             while (flag2)
             {
-                broqch = 0;
+                countOfTotalMoves = 0;
                 Random r = new Random();
 
                 for (int i = 0; i < 1000; i++)
@@ -354,26 +355,26 @@
                     }
                 }
 
-                Console.WriteLine("Welcome to the game “15”. Please try to arrange the numbers sequentially. Use 'top' to view the top scoreboard, 'restart' to start a new game and 'exit' to quit the game.\n");
+                Console.WriteLine("Welcome to the game “15”.\nPlease try to arrange the numbers sequentially.\nUse 'top' to view the top scoreboard,\n'restart' to start a new game\nand 'exit' to quit the game.\n");
                 Console.WriteLine(" -------------");
 
-                for (int i = 0; i < 4; i++)
+                for (int row = 0; row < 4; row++)
                 {
                     Console.Write("| ");
 
-                    for (int j = 0; j < 4; j++)
+                    for (int col = 0; col < 4; col++)
                     {
-                        if (a[i, j] >= 10)
+                        if (a[row, col] >= 10)
                         {
-                            Console.Write("{0} ", a[i, j]);
+                            Console.Write("{0} ", a[row, col]);
                         }
-                        else if (a[i, j] == 0)
+                        else if (a[row, col] == 0)
                         {
                             Console.Write("   ");
                         }
                         else
                         {
-                            Console.Write(" {0} ", a[i, j]);
+                            Console.Write(" {0} ", a[row, col]);
                         }
                     }
 
@@ -387,15 +388,15 @@
                 while (!flagSolved)
                 {
                     Console.Write("Enter a number to move: ");
-                    string s = Console.ReadLine();
-                    int n;
-                    bool flag = int.TryParse(s, out n);
+                    string inputCommand = Console.ReadLine();
+                    int selectedNumber;
+                    bool flag = int.TryParse(inputCommand, out selectedNumber);
 
                     if (flag)
                     {
-                        if (n >= 1 && n <= 15)
+                        if (selectedNumber >= 1 && selectedNumber <= 15)
                         {
-                            Move(n);
+                            Move(selectedNumber);
                         }
                         else
                         {
@@ -404,7 +405,7 @@
                     }
                     else
                     {
-                        if (s == "exit")
+                        if (inputCommand == "exit")
                         {
                             Console.WriteLine("Good bye!");
                             flag2 = false;
@@ -412,13 +413,13 @@
                         }
                         else
                         {
-                            if (s == "restart")
+                            if (inputCommand == "restart")
                             {
                                 startagain();
                             }
                             else
                             {
-                                if (s == "top")
+                                if (inputCommand == "top")
                                 {
                                     Console.WriteLine("\nScoreboard:");
 
@@ -448,13 +449,13 @@
 
                 if (flagSolved)
                 {
-                    Console.WriteLine("Congratulations! You won the game in {0} moves.", broqch);
+                    Console.WriteLine("Congratulations! You won the game in {0} moves.", countOfTotalMoves);
 
                     Console.Write("Please enter your name for the top scoreboard: ");
 
                     string s1 = Console.ReadLine();
 
-                    string res = broqch + " moves by " + s1;
+                    string res = countOfTotalMoves + " moves by " + s1;
 
                     if (topCount < 5)
                     {
