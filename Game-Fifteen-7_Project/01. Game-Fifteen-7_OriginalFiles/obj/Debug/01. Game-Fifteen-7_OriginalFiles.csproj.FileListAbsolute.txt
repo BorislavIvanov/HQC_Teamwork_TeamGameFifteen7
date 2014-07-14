@@ -7,3 +7,6 @@ D:\#Telerik#\# Visual Studio Projects #\Game-Fifteen-7_Project\01. Game-Fifteen-
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\01. Game-Fifteen-7_OriginalFiles\bin\Debug\_01.Game_Fifteen_7_OriginalFiles.exe.config
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\01. Game-Fifteen-7_OriginalFiles\obj\Debug\_01.Game_Fifteen_7_OriginalFiles.exe
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\01. Game-Fifteen-7_OriginalFiles\obj\Debug\_01.Game_Fifteen_7_OriginalFiles.pdb
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\01. Game-Fifteen-7_OriginalFiles\bin\Debug\_01.Game_Fifteen_7_OriginalFiles.exe
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\01. Game-Fifteen-7_OriginalFiles\bin\Debug\_01.Game_Fifteen_7_OriginalFiles.pdb
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\01. Game-Fifteen-7_OriginalFiles\obj\Debug\01. Game-Fifteen-7_OriginalFiles.csprojResolveAssemblyReference.cache

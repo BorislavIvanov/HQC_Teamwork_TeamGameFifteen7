@@ -13,8 +13,8 @@
         static int colPositionOfEmptySpace = 3;
         static bool gameContinues = true;
         static int countOfTotalMoves;
-        static int countOfTopPlayers = 0;
-        static string[] topPlayersScores = new string[5];
+        static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
+        static int countOfTopPlayers = topPlayersScores.Count;
 
         static bool CheckIsTheMoveAreLegal(int row, int col)
         {
@@ -182,10 +182,10 @@
 
                     if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
                             puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
                         rowPositionOfEmptySpace = rowOfSelectedCell;
                         colPositionOfEmptySpace = colOfSelectedCell;
                     }
@@ -203,10 +203,10 @@
 
                     if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
                             puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
                         rowPositionOfEmptySpace = rowOfSelectedCell;
                         colPositionOfEmptySpace = colOfSelectedCell;
                     }
@@ -224,10 +224,10 @@
 
                     if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
                             puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
                         rowPositionOfEmptySpace = rowOfSelectedCell;
                         colPositionOfEmptySpace = colOfSelectedCell;
                     }
@@ -245,10 +245,10 @@
 
                     if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
                             puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
                         rowPositionOfEmptySpace = rowOfSelectedCell;
                         colPositionOfEmptySpace = colOfSelectedCell;
                     }
@@ -258,21 +258,6 @@
                     }
                 }
             }
-        }
-
-        static void move(int i, string res)
-        {
-            if (i == 0)
-            {
-                topPlayersScores[i] = res;
-            }
-
-            for (int j = 0; j < i; j++)
-            {
-                topPlayersScores[j] = topPlayersScores[j + 1];
-            }
-
-            topPlayersScores[i] = res;
         }
 
         public static void Main(string[] args)
@@ -353,9 +338,9 @@
 
                                     if (countOfTopPlayers != 0)
                                     {
-                                        for (int i = 5 - countOfTopPlayers; i < 5; i++)
+                                        for (int i = 0; i <= countOfTopPlayers - 1; i++)
                                         {
-                                            Console.WriteLine("{0}", topPlayersScores[i]);
+                                            Console.WriteLine("{0} by {1}", topPlayersScores[i].Item1, topPlayersScores[i].Item2);
                                         }
                                     }
                                     else
@@ -385,32 +370,23 @@
 
                     string resultOfTheGame = countOfTotalMoves + " moves by " + inputOfPlayerName;
 
-                    if (countOfTopPlayers < 5)
-                    {
-                        topPlayersScores[countOfTopPlayers] = resultOfTheGame;
+                    topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, countOfTotalMoves));
+                    countOfTopPlayers = topPlayersScores.Count;
+                    topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
-                        countOfTopPlayers++;
-
-                        Array.Sort(topPlayersScores);
-                    }
-                    else
+                    if (countOfTopPlayers == 4)
                     {
-                        for (int i = 4; i >= 0; i++)
-                        {
-                            if (topPlayersScores[i].CompareTo(resultOfTheGame) <= 0)
-                            {
-                                move(i, resultOfTheGame);
-                            }
-                        }
+                        topPlayersScores.RemoveAt(3);
+                        countOfTopPlayers = topPlayersScores.Count;
                     }
 
                     Console.WriteLine("\nScoreboard:");
 
                     if (countOfTopPlayers != 0)
                     {
-                        for (int i = 5 - countOfTopPlayers; i < 5; i++)
+                        for (int i = 0; i <= countOfTopPlayers - 1; i++)
                         {
-                            Console.WriteLine("{0}", topPlayersScores[i]);
+                            Console.WriteLine("{0} by {1}", topPlayersScores[i].Item1, topPlayersScores[i].Item2);
                         }
                     }
                     else
