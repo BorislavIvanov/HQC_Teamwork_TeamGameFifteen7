@@ -171,7 +171,7 @@
 
         private static void ShuffleThePuzzleField()
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 int randomNumber = randomGenerator.Next(3);
 
