@@ -9,21 +9,21 @@
     {
         private static readonly Random randomGenerator = new Random();
         static int[,] puzzleField = new int[4, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 0 } };
-        static int x = 3;
-        static int y = 3;
-        static bool flag2 = true;
+        static int rowPositionOfEmptySpace = 3;
+        static int colPositionOfEmptySpace = 3;
+        static bool gameContinues = true;
         static int countOfTotalMoves;
+        static int countOfTopPlayers = 0;
         static string[] topPlayersScores = new string[5];
-        static int topCount = 0;
 
         static bool CheckIsTheMoveAreLegal(int row, int col)
         {
-            if ((row == x - 1 || row == x + 1) && col == y)
+            if ((row == rowPositionOfEmptySpace - 1 || row == rowPositionOfEmptySpace + 1) && col == colPositionOfEmptySpace)
             {
                 return true;
             }
 
-            if ((row == x) && (col == y - 1 || col == y + 1))
+            if ((row == rowPositionOfEmptySpace) && (col == colPositionOfEmptySpace - 1 || col == colPositionOfEmptySpace + 1))
             {
                 return true;
             }
@@ -33,21 +33,21 @@
 
         static void MoveTheNumberOfField(int number)
         {
-            int k = x;
-            int l = y;
-            bool flag = true;
+            int rowPositionOfTheSelectedNumber = rowPositionOfEmptySpace;
+            int colPositionOfTheSelectedNumber = colPositionOfEmptySpace;
+            bool positionOfNumberIsFound = true;
 
             for (int row = 0; row < 4; row++)
             {
-                if (flag)
+                if (positionOfNumberIsFound)
                 {
                     for (int col = 0; col < 4; col++)
                     {
                         if (puzzleField[row, col] == number)
                         {
-                            k = row;
-                            l = col;
-                            flag = false;
+                            rowPositionOfTheSelectedNumber = row;
+                            colPositionOfTheSelectedNumber = col;
+                            positionOfNumberIsFound = false;
                             break;
                         }
                     }
@@ -58,7 +58,7 @@
                 }
             }
 
-            bool isTheMoveAreLegal = CheckIsTheMoveAreLegal(k, l);
+            bool isTheMoveAreLegal = CheckIsTheMoveAreLegal(rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber);
 
             if (!isTheMoveAreLegal)
             {
@@ -66,11 +66,12 @@
             }
             else
             {
-                int temp = puzzleField[k, l];
-                puzzleField[k, l] = puzzleField[x, y];
-                puzzleField[x, y] = temp;
-                x = k;
-                y = l;
+                int currentlySelectedCell = puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber];
+                puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber] = 
+                    puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = currentlySelectedCell;
+                rowPositionOfEmptySpace = rowPositionOfTheSelectedNumber;
+                colPositionOfEmptySpace = colPositionOfTheSelectedNumber;
                 countOfTotalMoves++;
 
                 Console.WriteLine(" -------------");
@@ -170,82 +171,86 @@
 
         private static void ShuffleThePuzzleField()
         {
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 2; i++)
             {
-                int n = randomGenerator.Next(3);
+                int randomNumber = randomGenerator.Next(3);
 
-                if (n == 0)
+                if (randomNumber == 0)
                 {
-                    int nx = x - 1;
-                    int ny = y;
+                    int rowOfSelectedCell = rowPositionOfEmptySpace - 1;
+                    int colOfSelectedCell = colPositionOfEmptySpace;
 
-                    if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3)
+                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[x, y];
-                        puzzleField[x, y] = puzzleField[nx, ny];
-                        puzzleField[nx, ny] = temp;
-                        x = nx;
-                        y = ny;
+                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        rowPositionOfEmptySpace = rowOfSelectedCell;
+                        colPositionOfEmptySpace = colOfSelectedCell;
                     }
                     else
                     {
-                        n++;
+                        randomNumber++;
                         i--;
                     }
                 }
 
-                if (n == 1)
+                if (randomNumber == 1)
                 {
-                    int nx = x;
-                    int ny = y + 1;
+                    int rowOfSelectedCell = rowPositionOfEmptySpace;
+                    int colOfSelectedCell = colPositionOfEmptySpace + 1;
 
-                    if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3)
+                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[x, y];
-                        puzzleField[x, y] = puzzleField[nx, ny];
-                        puzzleField[nx, ny] = temp;
-                        x = nx;
-                        y = ny;
+                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        rowPositionOfEmptySpace = rowOfSelectedCell;
+                        colPositionOfEmptySpace = colOfSelectedCell;
                     }
                     else
                     {
-                        n++;
+                        randomNumber++;
                         i--;
                     }
                 }
 
-                if (n == 2)
+                if (randomNumber == 2)
                 {
-                    int nx = x + 1;
-                    int ny = y;
+                    int rowOfSelectedCell = rowPositionOfEmptySpace + 1;
+                    int colOfSelectedCell = colPositionOfEmptySpace;
 
-                    if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3)
+                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[x, y];
-                        puzzleField[x, y] = puzzleField[nx, ny];
-                        puzzleField[nx, ny] = temp;
-                        x = nx;
-                        y = ny;
+                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        rowPositionOfEmptySpace = rowOfSelectedCell;
+                        colPositionOfEmptySpace = colOfSelectedCell;
                     }
                     else
                     {
-                        n++;
+                        randomNumber++;
                         i--;
                     }
                 }
 
-                if (n == 3)
+                if (randomNumber == 3)
                 {
-                    int nx = x;
-                    int ny = y - 1;
+                    int rowOfSelectedCell = rowPositionOfEmptySpace;
+                    int colOfSelectedCell = colPositionOfEmptySpace - 1;
 
-                    if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3)
+                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
                     {
-                        int temp = puzzleField[x, y];
-                        puzzleField[x, y] = puzzleField[nx, ny];
-                        puzzleField[nx, ny] = temp;
-                        x = nx;
-                        y = ny;
+                        int temp = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = 
+                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = temp;
+                        rowPositionOfEmptySpace = rowOfSelectedCell;
+                        colPositionOfEmptySpace = colOfSelectedCell;
                     }
                     else
                     {
@@ -272,7 +277,7 @@
 
         public static void Main(string[] args)
         {
-            while (flag2)
+            while (gameContinues)
             {
                 countOfTotalMoves = 0;
 
@@ -331,7 +336,7 @@
                         if (inputCommand == "exit")
                         {
                             Console.WriteLine("Good bye!");
-                            flag2 = false;
+                            gameContinues = false;
                             break;
                         }
                         else
@@ -346,9 +351,9 @@
                                 {
                                     Console.WriteLine("\nScoreboard:");
 
-                                    if (topCount != 0)
+                                    if (countOfTopPlayers != 0)
                                     {
-                                        for (int i = 5 - topCount; i < 5; i++)
+                                        for (int i = 5 - countOfTopPlayers; i < 5; i++)
                                         {
                                             Console.WriteLine("{0}", topPlayersScores[i]);
                                         }
@@ -376,15 +381,15 @@
 
                     Console.Write("Please enter your name for the top scoreboard: ");
 
-                    string s1 = Console.ReadLine();
+                    string inputOfPlayerName = Console.ReadLine();
 
-                    string res = countOfTotalMoves + " moves by " + s1;
+                    string resultOfTheGame = countOfTotalMoves + " moves by " + inputOfPlayerName;
 
-                    if (topCount < 5)
+                    if (countOfTopPlayers < 5)
                     {
-                        topPlayersScores[topCount] = res;
+                        topPlayersScores[countOfTopPlayers] = resultOfTheGame;
 
-                        topCount++;
+                        countOfTopPlayers++;
 
                         Array.Sort(topPlayersScores);
                     }
@@ -392,18 +397,18 @@
                     {
                         for (int i = 4; i >= 0; i++)
                         {
-                            if (topPlayersScores[i].CompareTo(res) <= 0)
+                            if (topPlayersScores[i].CompareTo(resultOfTheGame) <= 0)
                             {
-                                move(i, res);
+                                move(i, resultOfTheGame);
                             }
                         }
                     }
 
                     Console.WriteLine("\nScoreboard:");
 
-                    if (topCount != 0)
+                    if (countOfTopPlayers != 0)
                     {
-                        for (int i = 5 - topCount; i < 5; i++)
+                        for (int i = 5 - countOfTopPlayers; i < 5; i++)
                         {
                             Console.WriteLine("{0}", topPlayersScores[i]);
                         }
