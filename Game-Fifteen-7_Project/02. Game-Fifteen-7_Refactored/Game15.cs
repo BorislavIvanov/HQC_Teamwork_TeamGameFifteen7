@@ -1,402 +1,376 @@
-﻿namespace Game15
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+﻿//namespace Game15
+//{
+//    using System;
+//    using System.Collections.Generic;
+//    using System.Linq;
+//    using System.Text;
 
-    class Game15
-    {
-        private static readonly Random randomGenerator = new Random();
-        static int[,] puzzleField = new int[4, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 0 } };
-        static int rowPositionOfEmptySpace = 3;
-        static int colPositionOfEmptySpace = 3;
-        static bool gameContinues = true;
-        static int countOfTotalMoves;
-        static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
-        static int countOfTopPlayers = topPlayersScores.Count;
+//    class Game15
+//    {
+//        private static readonly Random randomGenerator = new Random();
+//        static int[,] puzzleField = new int[4, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 0 } };
+//        static int rowPositionOfEmptySpace = 3;
+//        static int colPositionOfEmptySpace = 3;
+//        static bool gameContinues = true;
+//        static int countOfTotalMoves;
+//        static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
+//        static int countOfTopPlayers = topPlayersScores.Count;
 
-        static bool CheckIsTheMoveAreLegal(int row, int col)
-        {
-            if ((row == rowPositionOfEmptySpace - 1 || row == rowPositionOfEmptySpace + 1) && col == colPositionOfEmptySpace)
-            {
-                return true;
-            }
+//        static bool CheckIsTheMoveAreLegal(int row, int col)//
+//        {
+//            if ((row == rowPositionOfEmptySpace - 1 || row == rowPositionOfEmptySpace + 1) && col == colPositionOfEmptySpace)
+//            {
+//                return true;
+//            }
 
-            if ((row == rowPositionOfEmptySpace) && (col == colPositionOfEmptySpace - 1 || col == colPositionOfEmptySpace + 1))
-            {
-                return true;
-            }
+//            if ((row == rowPositionOfEmptySpace) && (col == colPositionOfEmptySpace - 1 || col == colPositionOfEmptySpace + 1))
+//            {
+//                return true;
+//            }
 
-            return false;
-        }
+//            return false;
+//        }
 
-        static void MoveTheNumberOfField(int number)
-        {
-            int rowPositionOfTheSelectedNumber = rowPositionOfEmptySpace;
-            int colPositionOfTheSelectedNumber = colPositionOfEmptySpace;
-            bool positionOfNumberIsFound = true;
+//        static void MoveTheNumberOfField(int number)//
+//        {
+//            int rowPositionOfTheSelectedNumber = rowPositionOfEmptySpace;
+//            int colPositionOfTheSelectedNumber = colPositionOfEmptySpace;
+//            bool positionOfNumberIsFound = true;
 
-            for (int row = 0; row < 4; row++)
-            {
-                if (positionOfNumberIsFound)
-                {
-                    for (int col = 0; col < 4; col++)
-                    {
-                        if (puzzleField[row, col] == number)
-                        {
-                            rowPositionOfTheSelectedNumber = row;
-                            colPositionOfTheSelectedNumber = col;
-                            positionOfNumberIsFound = false;
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
+//            for (int row = 0; row < 4; row++)
+//            {
+//                if (positionOfNumberIsFound)
+//                {
+//                    for (int col = 0; col < 4; col++)
+//                    {
+//                        if (puzzleField[row, col] == number)
+//                        {
+//                            rowPositionOfTheSelectedNumber = row;
+//                            colPositionOfTheSelectedNumber = col;
+//                            positionOfNumberIsFound = false;
+//                            break;
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    break;
+//                }
+//            }
 
-            bool isTheMoveAreLegal = CheckIsTheMoveAreLegal(rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber);
+//            bool isTheMoveAreLegal = CheckIsTheMoveAreLegal(rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber);
 
-            if (!isTheMoveAreLegal)
-            {
-                Console.WriteLine("Illegal move!");
-            }
-            else
-            {
-                int currentlySelectedCell = puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber];
-                puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber] = 
-                    puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = currentlySelectedCell;
-                rowPositionOfEmptySpace = rowPositionOfTheSelectedNumber;
-                colPositionOfEmptySpace = colPositionOfTheSelectedNumber;
-                countOfTotalMoves++;
+//            if (!isTheMoveAreLegal)
+//            {
+//                Console.WriteLine("Illegal move!");
+//            }
+//            else
+//            {
+//                int currentlySelectedCell = puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber];
+//                puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber] =
+//                    puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+//                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = currentlySelectedCell;
+//                rowPositionOfEmptySpace = rowPositionOfTheSelectedNumber;
+//                colPositionOfEmptySpace = colPositionOfTheSelectedNumber;
+//                countOfTotalMoves++;
 
-                Console.WriteLine(" -------------");
+//                PrintTheGameField();
+//            }
+//        }
 
-                for (int row = 0; row < 4; row++)
-                {
-                    Console.Write("| ");
+//        static bool IsPuzzleSolved()//
+//        {
+//            if (puzzleField[3, 3] == 0)
+//            {
+//                int correctNumber = 1;
 
-                    for (int col = 0; col < 4; col++)
-                    {
-                        if (puzzleField[row, col] >= 10)
-                        {
-                            Console.Write("{0} ", puzzleField[row, col]);
-                        }
-                        else if (puzzleField[row, col] == 0)
-                        {
-                            Console.Write("   ");
-                        }
-                        else
-                        {
-                            Console.Write(" {0} ", puzzleField[row, col]);
-                        }
-                    }
+//                for (int row = 0; row < 4; row++)
+//                {
+//                    for (int col = 0; col < 4; col++)
+//                    {
+//                        if (correctNumber <= 15)
+//                        {
+//                            if (puzzleField[row, col] == correctNumber)
+//                            {
+//                                correctNumber++;
+//                            }
+//                            else
+//                            {
+//                                return false;
+//                            }
+//                        }
+//                        else
+//                        {
+//                            return true;
+//                        }
+//                    }
+//                }
+//            }
 
-                    Console.WriteLine("|");
-                }
+//            return false;
+//        }
 
-                Console.WriteLine(" -------------");
-            }
-        }
+//        static void StartNewGame()//
+//        {
+//            countOfTotalMoves = 0;
 
-        static bool IsPuzzleSolved()
-        {
-            if (puzzleField[3, 3] == 0)
-            {
-                int correctNumber = 1;
+//            ShuffleThePuzzleField();
 
-                for (int row = 0; row < 4; row++)
-                {
-                    for (int col = 0; col < 4; col++)
-                    {
-                        if (correctNumber <= 15)
-                        {
-                            if (puzzleField[row, col] == correctNumber)
-                            {
-                                correctNumber++;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
+//            PrintTheGameField();
+//        }
 
-            return false;
-        }
+//        private static void ShuffleThePuzzleField()//
+//        {
+//            for (int i = 0; i < 1; i++)
+//            {
+//                int randomNumber = randomGenerator.Next(3);
 
-        static void StartNewGame()
-        {
-            countOfTotalMoves = 0;
+//                if (randomNumber == 0)
+//                {
+//                    int rowOfSelectedCell = rowPositionOfEmptySpace - 1;
+//                    int colOfSelectedCell = colPositionOfEmptySpace;
 
-            ShuffleThePuzzleField();
+//                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
+//                    {
+//                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+//                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
+//                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+//                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
+//                        rowPositionOfEmptySpace = rowOfSelectedCell;
+//                        colPositionOfEmptySpace = colOfSelectedCell;
+//                    }
+//                    else
+//                    {
+//                        randomNumber++;
+//                        i--;
+//                    }
+//                }
 
-            Console.WriteLine(" -------------");
+//                if (randomNumber == 1)
+//                {
+//                    int rowOfSelectedCell = rowPositionOfEmptySpace;
+//                    int colOfSelectedCell = colPositionOfEmptySpace + 1;
 
-            for (int row = 0; row < 4; row++)
-            {
-                Console.Write("| ");
+//                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
+//                    {
+//                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+//                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
+//                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+//                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
+//                        rowPositionOfEmptySpace = rowOfSelectedCell;
+//                        colPositionOfEmptySpace = colOfSelectedCell;
+//                    }
+//                    else
+//                    {
+//                        randomNumber++;
+//                        i--;
+//                    }
+//                }
 
-                for (int col = 0; col < 4; col++)
-                {
-                    if (puzzleField[row, col] >= 10)
-                    {
-                        Console.Write("{0} ", puzzleField[row, col]);
-                    }
-                    else if (puzzleField[row, col] == 0)
-                    {
-                        Console.Write("   ");
-                    }
-                    else
-                    {
-                        Console.Write(" {0} ", puzzleField[row, col]);
-                    }
-                }
+//                if (randomNumber == 2)
+//                {
+//                    int rowOfSelectedCell = rowPositionOfEmptySpace + 1;
+//                    int colOfSelectedCell = colPositionOfEmptySpace;
 
-                Console.WriteLine("|");
-            }
+//                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
+//                    {
+//                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+//                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
+//                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+//                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
+//                        rowPositionOfEmptySpace = rowOfSelectedCell;
+//                        colPositionOfEmptySpace = colOfSelectedCell;
+//                    }
+//                    else
+//                    {
+//                        randomNumber++;
+//                        i--;
+//                    }
+//                }
 
-            Console.WriteLine(" -------------");
-        }
+//                if (randomNumber == 3)
+//                {
+//                    int rowOfSelectedCell = rowPositionOfEmptySpace;
+//                    int colOfSelectedCell = colPositionOfEmptySpace - 1;
 
-        private static void ShuffleThePuzzleField()
-        {
-            for (int i = 0; i < 1000; i++)
-            {
-                int randomNumber = randomGenerator.Next(3);
+//                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
+//                    {
+//                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
+//                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
+//                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
+//                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
+//                        rowPositionOfEmptySpace = rowOfSelectedCell;
+//                        colPositionOfEmptySpace = colOfSelectedCell;
+//                    }
+//                    else
+//                    {
+//                        i--;
+//                    }
+//                }
+//            }
+//        }
 
-                if (randomNumber == 0)
-                {
-                    int rowOfSelectedCell = rowPositionOfEmptySpace - 1;
-                    int colOfSelectedCell = colPositionOfEmptySpace;
+//        private static void PrintScoreboard()//
+//        {
+//            Console.WriteLine("\nScoreboard:");
 
-                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-                    {
-                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-                        rowPositionOfEmptySpace = rowOfSelectedCell;
-                        colPositionOfEmptySpace = colOfSelectedCell;
-                    }
-                    else
-                    {
-                        randomNumber++;
-                        i--;
-                    }
-                }
+//            if (countOfTopPlayers != 0)
+//            {
+//                for (int i = 0; i <= countOfTopPlayers - 1; i++)
+//                {
+//                    Console.WriteLine("{0} by {1}", topPlayersScores[i].Item1, topPlayersScores[i].Item2);
+//                }
+//            }
+//            else
+//            {
+//                Console.WriteLine("Empty Scoreboard! :)");
+//            }
+//        }
 
-                if (randomNumber == 1)
-                {
-                    int rowOfSelectedCell = rowPositionOfEmptySpace;
-                    int colOfSelectedCell = colPositionOfEmptySpace + 1;
+//        private static void PrintTheGameField()//
+//        {
+//            Console.WriteLine(" -------------");
 
-                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-                    {
-                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-                        rowPositionOfEmptySpace = rowOfSelectedCell;
-                        colPositionOfEmptySpace = colOfSelectedCell;
-                    }
-                    else
-                    {
-                        randomNumber++;
-                        i--;
-                    }
-                }
+//            for (int row = 0; row < 4; row++)
+//            {
+//                Console.Write("| ");
 
-                if (randomNumber == 2)
-                {
-                    int rowOfSelectedCell = rowPositionOfEmptySpace + 1;
-                    int colOfSelectedCell = colPositionOfEmptySpace;
+//                for (int col = 0; col < 4; col++)
+//                {
+//                    if (puzzleField[row, col] >= 10)
+//                    {
+//                        Console.Write("{0} ", puzzleField[row, col]);
+//                    }
+//                    else if (puzzleField[row, col] == 0)
+//                    {
+//                        Console.Write("   ");
+//                    }
+//                    else
+//                    {
+//                        Console.Write(" {0} ", puzzleField[row, col]);
+//                    }
+//                }
 
-                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-                    {
-                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-                        rowPositionOfEmptySpace = rowOfSelectedCell;
-                        colPositionOfEmptySpace = colOfSelectedCell;
-                    }
-                    else
-                    {
-                        randomNumber++;
-                        i--;
-                    }
-                }
+//                Console.WriteLine("|");
+//            }
 
-                if (randomNumber == 3)
-                {
-                    int rowOfSelectedCell = rowPositionOfEmptySpace;
-                    int colOfSelectedCell = colPositionOfEmptySpace - 1;
+//            Console.WriteLine(" -------------");
+//        }
 
-                    if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-                    {
-                        int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                        puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-                            puzzleField[rowOfSelectedCell, colOfSelectedCell];
-                        puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-                        rowPositionOfEmptySpace = rowOfSelectedCell;
-                        colPositionOfEmptySpace = colOfSelectedCell;
-                    }
-                    else
-                    {
-                        i--;
-                    }
-                }
-            }
-        }
+//        private static void PrintWelcomeMessage()//
+//        {
+//            Console.WriteLine("Welcome to the game “15”.\nPlease try to arrange the numbers sequentially.\nUse 'top' to view the top scoreboard,\n'restart' to start a new game\nand 'exit' to quit the game.\n");
+//            Console.WriteLine(" -------------");
+//        }
 
-        public static void Main(string[] args)
-        {
-            while (gameContinues)
-            {
-                countOfTotalMoves = 0;
+//        private static void AddNewTopPlayer(string inputOfPlayerName)
+//        {
+//            topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, countOfTotalMoves));
+//            countOfTopPlayers = topPlayersScores.Count;
+//            topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
-                ShuffleThePuzzleField();
+//            if (countOfTopPlayers == 4)
+//            {
+//                topPlayersScores.RemoveAt(3);
+//                countOfTopPlayers = topPlayersScores.Count;
+//            }
+//        }
 
-                Console.WriteLine("Welcome to the game “15”.\nPlease try to arrange the numbers sequentially.\nUse 'top' to view the top scoreboard,\n'restart' to start a new game\nand 'exit' to quit the game.\n");
-                Console.WriteLine(" -------------");
+//        private static void PrintTheGameIsWon()//
+//        {
+//            Console.WriteLine("Congratulations! You won the game in {0} moves.", countOfTotalMoves);
 
-                for (int row = 0; row < 4; row++)
-                {
-                    Console.Write("| ");
+//            Console.Write("Please enter your name for the top scoreboard: ");
+//        }
 
-                    for (int col = 0; col < 4; col++)
-                    {
-                        if (puzzleField[row, col] >= 10)
-                        {
-                            Console.Write("{0} ", puzzleField[row, col]);
-                        }
-                        else if (puzzleField[row, col] == 0)
-                        {
-                            Console.Write("   ");
-                        }
-                        else
-                        {
-                            Console.Write(" {0} ", puzzleField[row, col]);
-                        }
-                    }
+//        private static void ExecuteTheGameCommand(string inputCommand, int selectedNumber, bool inputIsANumber)//
+//        {
+//            if (inputIsANumber)
+//            {
+//                if (selectedNumber >= 1 && selectedNumber <= 15)
+//                {
+//                    MoveTheNumberOfField(selectedNumber);
+//                }
+//                else
+//                {
+//                    Console.WriteLine("Illegal move!");
+//                }
+//            }
+//            else
+//            {
+//                if (inputCommand == "exit")
+//                {
+//                    Console.WriteLine("Good bye!");
+//                    gameContinues = false;
+//                    //break;
+//                }
+//                else
+//                {
+//                    if (inputCommand == "restart")
+//                    {
+//                        StartNewGame();
+//                    }
+//                    else
+//                    {
+//                        if (inputCommand == "top")
+//                        {
+//                            PrintScoreboard();
 
-                    Console.WriteLine("|");
-                }
+//                            Console.WriteLine();
+//                        }
+//                        else
+//                        {
+//                            Console.WriteLine("Illegal command!");
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
-                Console.WriteLine(" -------------");
+//        public static void Main(string[] args)//
+//        {
+//            while (gameContinues)
+//            {
+//                countOfTotalMoves = 0;
 
-                bool isGameWon = IsPuzzleSolved();
+//                ShuffleThePuzzleField();
 
-                while (!isGameWon)
-                {
-                    Console.Write("Enter a number to move: ");
-                    string inputCommand = Console.ReadLine();
-                    int selectedNumber;
-                    bool inputIsANumber = int.TryParse(inputCommand, out selectedNumber);
+//                PrintWelcomeMessage();
 
-                    if (inputIsANumber)
-                    {
-                        if (selectedNumber >= 1 && selectedNumber <= 15)
-                        {
-                            MoveTheNumberOfField(selectedNumber);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Illegal move!");
-                        }
-                    }
-                    else
-                    {
-                        if (inputCommand == "exit")
-                        {
-                            Console.WriteLine("Good bye!");
-                            gameContinues = false;
-                            break;
-                        }
-                        else
-                        {
-                            if (inputCommand == "restart")
-                            {
-                                StartNewGame();
-                            }
-                            else
-                            {
-                                if (inputCommand == "top")
-                                {
-                                    Console.WriteLine("\nScoreboard:");
+//                PrintTheGameField();
 
-                                    if (countOfTopPlayers != 0)
-                                    {
-                                        for (int i = 0; i <= countOfTopPlayers - 1; i++)
-                                        {
-                                            Console.WriteLine("{0} by {1}", topPlayersScores[i].Item1, topPlayersScores[i].Item2);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("-");
-                                    }
+//                bool isGameWon = IsPuzzleSolved();
 
-                                    Console.WriteLine();
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Illegal command!");
-                                }
-                            }
-                        }
-                    }
-                    isGameWon = IsPuzzleSolved();
-                }
+//                while (!isGameWon)
+//                {
+//                    Console.Write("Enter a number to move: ");
+//                    string inputCommand = Console.ReadLine();
+//                    int selectedNumber;
+//                    bool inputIsANumber = int.TryParse(inputCommand, out selectedNumber);
 
-                if (isGameWon)
-                {
-                    Console.WriteLine("Congratulations! You won the game in {0} moves.", countOfTotalMoves);
+//                    ExecuteTheGameCommand(inputCommand, selectedNumber, inputIsANumber);
 
-                    Console.Write("Please enter your name for the top scoreboard: ");
+//                    if (!gameContinues)
+//                    {
+//                        break;
+//                    }
 
-                    string inputOfPlayerName = Console.ReadLine();
+//                    isGameWon = IsPuzzleSolved();
+//                }
 
-                    string resultOfTheGame = countOfTotalMoves + " moves by " + inputOfPlayerName;
+//                if (isGameWon)
+//                {
+//                    PrintTheGameIsWon();
 
-                    topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, countOfTotalMoves));
-                    countOfTopPlayers = topPlayersScores.Count;
-                    topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+//                    string inputOfPlayerName = Console.ReadLine();
 
-                    if (countOfTopPlayers == 4)
-                    {
-                        topPlayersScores.RemoveAt(3);
-                        countOfTopPlayers = topPlayersScores.Count;
-                    }
+//                    AddNewTopPlayer(inputOfPlayerName);
 
-                    Console.WriteLine("\nScoreboard:");
+//                    PrintScoreboard();
 
-                    if (countOfTopPlayers != 0)
-                    {
-                        for (int i = 0; i <= countOfTopPlayers - 1; i++)
-                        {
-                            Console.WriteLine("{0} by {1}", topPlayersScores[i].Item1, topPlayersScores[i].Item2);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("-");
-                    }
-
-                    Console.WriteLine();
-                }
-            }
-        }
-    }
-}
+//                    Console.WriteLine();
+//                }
+//            }
+//        }
+//    }
+//}
