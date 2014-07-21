@@ -1,7 +1,7 @@
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\bin\Debug\_03.Game_Fifteen_7_Tests.dll
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\bin\Debug\_03.Game_Fifteen_7_Tests.pdb
-D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\obj\Debug\03. Game-Fifteen-7_Tests.csprojResolveAssemblyReference.cache
-D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\obj\Debug\_03.Game_Fifteen_7_Tests.dll
-D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\obj\Debug\_03.Game_Fifteen_7_Tests.pdb
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\bin\Debug\_02.Game_Fifteen_7_Refactored.exe
 D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\bin\Debug\_02.Game_Fifteen_7_Refactored.pdb
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\obj\Debug\03. Game-Fifteen-7_Refactored.Tests.csprojResolveAssemblyReference.cache
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\obj\Debug\_03.Game_Fifteen_7_Tests.dll
+D:\#Telerik#\#GitHub Directory#\TeamGameFifteen7\Game-Fifteen-7_Project\03. Game-Fifteen-7_Tests\obj\Debug\_03.Game_Fifteen_7_Tests.pdb

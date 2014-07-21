@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01. Game-Fifteen-7_Original
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02. Game-Fifteen-7_Refactored", "02. Game-Fifteen-7_Refactored\02. Game-Fifteen-7_Refactored.csproj", "{FEE28BE5-D9C9-4CB1-B95A-D228C4074086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Game-Fifteen-7_Tests", "03. Game-Fifteen-7_Tests\03. Game-Fifteen-7_Tests.csproj", "{073770CB-F09B-4284-8351-BBAED97A20FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03. Game-Fifteen-7_Refactored.Tests", "03. Game-Fifteen-7_Tests\03. Game-Fifteen-7_Refactored.Tests.csproj", "{073770CB-F09B-4284-8351-BBAED97A20FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
