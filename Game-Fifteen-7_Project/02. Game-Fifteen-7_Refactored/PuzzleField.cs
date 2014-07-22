@@ -8,7 +8,7 @@ namespace GameFifteenVersionSeven
         {
             this.MatrixSize = size;
             this.InitialValue = initialValue;
-            this.Body=new List<Cell>();
+            this.Body = new List<Cell>();
             this.FillPuzzleBody();
         }
 
@@ -36,7 +36,7 @@ namespace GameFifteenVersionSeven
             for (int i = 0; i < this.Body.Count; i++)
             {
                 searchedCell = this.Body[i];
-                if (searchedCell.Context == 0)
+                if (searchedCell.Context == this.InitialValue)
                 {
                     break;
                 }
@@ -47,13 +47,13 @@ namespace GameFifteenVersionSeven
         public void FillPuzzleBody()
         {
             Cell singleCell = new Cell();
-            int currentValue = this.InitialValue+1;
+            int currentValue = this.InitialValue + 1;
             for (int row = 0; row < this.MatrixSize; row++)
             {
                 for (int col = 0; col < this.MatrixSize; col++)
                 {
                     Cell currentCell = singleCell.Clone() as Cell;
-                    if (currentValue==this.MatrixSize*this.MatrixSize)
+                    if (currentValue == this.MatrixSize * this.MatrixSize)
                     {
                         currentValue = 0;
                     }
