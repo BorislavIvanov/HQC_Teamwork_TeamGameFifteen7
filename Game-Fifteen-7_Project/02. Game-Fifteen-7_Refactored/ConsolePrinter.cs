@@ -27,28 +27,18 @@
         /// This method render the game field in console.
         /// </summary>
         /// <param name="puzzleField">Array containing field values.</param>
-        internal static void PrintTheGameField(int[,] puzzleField)
+        internal static void PrintTheGameField(PuzzleField puzzleField)
         {
             Console.WriteLine(" -------------");
 
-            for (int row = 0; row < 4; row++)
+            for (int row = 0; row < puzzleField.MatrixSize; row++)
             {
                 Console.Write("| ");
 
-                for (int col = 0; col < 4; col++)
+                for (int col = 0; col < puzzleField.MatrixSize; col++)
                 {
-                    if (puzzleField[row, col] >= 10)
-                    {
-                        Console.Write("{0} ", puzzleField[row, col]);
-                    }
-                    else if (puzzleField[row, col] == 0)
-                    {
-                        Console.Write("   ");
-                    }
-                    else
-                    {
-                        Console.Write(" {0} ", puzzleField[row, col]);
-                    }
+                    int currentCelNumber = (puzzleField.MatrixSize * row) + col;
+                    puzzleField.Body[currentCelNumber].Print();
                 }
 
                 Console.WriteLine("|");
