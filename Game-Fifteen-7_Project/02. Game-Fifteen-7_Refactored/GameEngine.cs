@@ -8,8 +8,15 @@
     /// <summary>
     /// This method contains the core game logic.
     /// </summary>
-    internal static class GameEngine
+    public class GameEngine
     {
+
+        public GameEngine()
+        {
+            this.CommandManager=new CommandManager();
+        }
+
+        public CommandManager CommandManager { get; set; }
         /// <summary>
         /// Random generator for random field shuffle.
         /// </summary>
@@ -44,17 +51,25 @@
         /// Array of top players.
         /// </summary>
         private static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
-        
+
         /// <summary>
         /// Count of top players.
         /// </summary>
         private static int countOfTopPlayers = topPlayersScores.Count;
 
+        public ICommand TopCommand { get; set; }
+
+        public ICommand ExitCommand { get; set; }
+
+        public ICommand RestartCommand { get; set; }
+
         /// <summary>
         /// This method start the game.
         /// </summary>
-        public static void StartTheGame()
+        public void StartTheGame()
         {
+            DefineCommands(countOfTopPlayers, topPlayersScores);
+
             while (gameContinues)
             {
                 countOfTotalMoves = 0;
@@ -71,7 +86,7 @@
                 {
                     Console.Write("Enter a number to move: ");
                     string inputCommand = Console.ReadLine();
-                    
+
                     ExecuteTheGameCommand(inputCommand);
 
                     if (!gameContinues)
@@ -97,10 +112,17 @@
             }
         }
 
+        private void DefineCommands(int countOfTopPlayers, List<Tuple<string, int>> topPlayersScores)
+        {
+            this.TopCommand = new TopCommand(countOfTopPlayers, topPlayersScores);
+            this.ExitCommand = new ExitCommand();
+            this.RestartCommand = new RestartCommand(this);
+        }
+
         /// <summary>
         /// This method make a restart of the game.
         /// </summary>
-        private static void StartNewGame()
+        public void StartNewGame()
         {
             countOfTotalMoves = 0;
 
@@ -279,7 +301,7 @@
         /// This method gets input command from player and execute it.
         /// </summary>
         /// <param name="inputCommand">Input command from player.</param>
-        private static void ExecuteTheGameCommand(string inputCommand)
+        private void ExecuteTheGameCommand(string inputCommand)
         {
             int selectedNumber;
             bool inputIsANumber = int.TryParse(inputCommand, out selectedNumber);
@@ -299,22 +321,20 @@
             {
                 if (inputCommand == "exit")
                 {
-                    Console.WriteLine("Good bye!");
+                    this.CommandManager.Proceed(ExitCommand);
                     gameContinues = false;
                 }
                 else
                 {
                     if (inputCommand == "restart")
                     {
-                        StartNewGame();
+                        this.CommandManager.Proceed(this.RestartCommand);
                     }
                     else
                     {
                         if (inputCommand == "top")
                         {
-                            ConsolePrinter.PrintScoreboard(countOfTopPlayers, topPlayersScores);
-
-                            Console.WriteLine();
+                            this.CommandManager.Proceed(this.TopCommand);
                         }
                         else
                         {

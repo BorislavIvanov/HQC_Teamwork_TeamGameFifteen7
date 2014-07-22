@@ -2,14 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// This class contains methods that write to the console.
     /// </summary>
-    internal class ConsolePrinter
+    internal static class ConsolePrinter
     {
         /// <summary>
         /// This method write welcome message on screen.
