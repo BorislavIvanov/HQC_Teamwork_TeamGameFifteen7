@@ -24,21 +24,7 @@ namespace GameFifteenVersionSeven
 
         public ShuffleStrategy ShuffleStrategy { get; set; }
 
-        /// <summary>
-        /// Game puzzle field.
-        /// </summary>
-        //private static int[,] puzzleField = new int[4, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 0 } };
-
         public PuzzleField PuzzleField { get; set; }
-        ///// <summary>
-        ///// Row position of field empty space.
-        ///// </summary>
-        //private static int rowPositionOfEmptySpace = 3;
-
-        ///// <summary>
-        ///// Column position of field empty space.
-        ///// </summary>
-        //private static int colPositionOfEmptySpace = 3;
 
         /// <summary>
         /// Boolean variable for whether the game continues.
@@ -80,8 +66,6 @@ namespace GameFifteenVersionSeven
                 countOfTotalMoves = 0;
 
                 this.ShuffleStrategy.Shuffle(this.PuzzleField);
-
-                //ShuffleThePuzzleField();
 
                 ConsolePrinter.PrintWelcomeMessage();
 
@@ -135,104 +119,8 @@ namespace GameFifteenVersionSeven
 
             this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
-            //ShuffleThePuzzleField();
-
             ConsolePrinter.PrintTheGameField(this.PuzzleField);
         }
-
-        /// <summary>
-        /// This method shuffle all numbers in puzzle field.
-        /// </summary>
-        //private static void ShuffleThePuzzleField()
-        //{
-        //    for (int i = 0; i < 1000; i++)
-        //    {
-        //        int randomNumber = RandomGenerator.Next(3);
-
-        //        if (randomNumber == 0)
-        //        {
-        //            int rowOfSelectedCell = rowPositionOfEmptySpace - 1;
-        //            int colOfSelectedCell = colPositionOfEmptySpace;
-
-        //            if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-        //            {
-        //                int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-        //                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-        //                    puzzleField[rowOfSelectedCell, colOfSelectedCell];
-        //                puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-        //                rowPositionOfEmptySpace = rowOfSelectedCell;
-        //                colPositionOfEmptySpace = colOfSelectedCell;
-        //            }
-        //            else
-        //            {
-        //                randomNumber++;
-        //                i--;
-        //            }
-        //        }
-
-        //        if (randomNumber == 1)
-        //        {
-        //            int rowOfSelectedCell = rowPositionOfEmptySpace;
-        //            int colOfSelectedCell = colPositionOfEmptySpace + 1;
-
-        //            if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-        //            {
-        //                int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-        //                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-        //                    puzzleField[rowOfSelectedCell, colOfSelectedCell];
-        //                puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-        //                rowPositionOfEmptySpace = rowOfSelectedCell;
-        //                colPositionOfEmptySpace = colOfSelectedCell;
-        //            }
-        //            else
-        //            {
-        //                randomNumber++;
-        //                i--;
-        //            }
-        //        }
-
-        //        if (randomNumber == 2)
-        //        {
-        //            int rowOfSelectedCell = rowPositionOfEmptySpace + 1;
-        //            int colOfSelectedCell = colPositionOfEmptySpace;
-
-        //            if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-        //            {
-        //                int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-        //                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-        //                    puzzleField[rowOfSelectedCell, colOfSelectedCell];
-        //                puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-        //                rowPositionOfEmptySpace = rowOfSelectedCell;
-        //                colPositionOfEmptySpace = colOfSelectedCell;
-        //            }
-        //            else
-        //            {
-        //                randomNumber++;
-        //                i--;
-        //            }
-        //        }
-
-        //        if (randomNumber == 3)
-        //        {
-        //            int rowOfSelectedCell = rowPositionOfEmptySpace;
-        //            int colOfSelectedCell = colPositionOfEmptySpace - 1;
-
-        //            if (rowOfSelectedCell >= 0 && rowOfSelectedCell <= 3 && colOfSelectedCell >= 0 && colOfSelectedCell <= 3)
-        //            {
-        //                int emptySpaceCell = puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-        //                puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] =
-        //                    puzzleField[rowOfSelectedCell, colOfSelectedCell];
-        //                puzzleField[rowOfSelectedCell, colOfSelectedCell] = emptySpaceCell;
-        //                rowPositionOfEmptySpace = rowOfSelectedCell;
-        //                colPositionOfEmptySpace = colOfSelectedCell;
-        //            }
-        //            else
-        //            {
-        //                i--;
-        //            }
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// This method checks if a number from a cell can be moved.
@@ -264,9 +152,6 @@ namespace GameFifteenVersionSeven
         private void MoveTheNumberOfField(int number)
         {
             Cell selectedCell = new Cell();
-            //int rowPositionOfTheSelectedNumber = selectedCell.Row;
-            //int colPositionOfTheSelectedNumber = selectedCell.Col;
-            //bool positionOfNumberIsFound = true;
 
             for (int i = 0; i < this.PuzzleField.Body.Count; i++)
             {
@@ -274,33 +159,9 @@ namespace GameFifteenVersionSeven
                 if (currentCell.Context == number)
                 {
                     selectedCell = currentCell;
-                    //selectedCell.Row = currentCell.Row;
-                    //selectedCell.Col = currentCell.Col;
-                    //positionOfNumberIsFound = false;
                     break;
                 }
             }
-
-            //for (int row = 0; row < 4; row++)
-            //{
-            //    if (positionOfNumberIsFound)
-            //    {
-            //        for (int col = 0; col < 4; col++)
-            //        {
-            //            if (puzzleField[row, col] == number)
-            //            {
-            //                rowPositionOfTheSelectedNumber = row;
-            //                colPositionOfTheSelectedNumber = col;
-            //                positionOfNumberIsFound = false;
-            //                break;
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        break;
-            //    }
-            //}
 
             bool isTheMoveAreLegal = CheckIsTheMoveAreLegal(selectedCell);
 
@@ -314,13 +175,6 @@ namespace GameFifteenVersionSeven
                 selectedCell.Context = this.PuzzleField.EmptyCell.Context;
                 this.PuzzleField.EmptyCell.Context = cellForChange;
                 countOfTotalMoves++;
-                //int currentlySelectedCell = puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber];
-                //puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber] =
-                //    puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
-                //puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace] = currentlySelectedCell;
-                //rowPositionOfEmptySpace = rowPositionOfTheSelectedNumber;
-                //colPositionOfEmptySpace = colPositionOfTheSelectedNumber;
-                //countOfTotalMoves++;
 
                 ConsolePrinter.PrintTheGameField(this.PuzzleField);
             }
@@ -380,44 +234,16 @@ namespace GameFifteenVersionSeven
         /// <returns>Returns "true" if the puzzle is correctly solved or "false" if the puzzle is not correctly solved.</returns>
         private bool IsPuzzleSolved()
         {
-            for (int i = 0; i < this.PuzzleField.Body.Count-1; i++)
+            for (int i = 0; i < this.PuzzleField.Body.Count - 1; i++)
             {
                 Cell currentCell = this.PuzzleField.Body[i];
-                if (currentCell.Context!=i+1)
+                if (currentCell.Context != i + 1)
                 {
                     return false;
                 }
             }
 
             return true;
-            //if (puzzleField[3, 3] == 0)
-            //{
-            //    int correctNumber = 1;
-
-            //    for (int row = 0; row < 4; row++)
-            //    {
-            //        for (int col = 0; col < 4; col++)
-            //        {
-            //            if (correctNumber <= 15)
-            //            {
-            //                if (puzzleField[row, col] == correctNumber)
-            //                {
-            //                    correctNumber++;
-            //                }
-            //                else
-            //                {
-            //                    return false;
-            //                }
-            //            }
-            //            else
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //    }
-            //}
-
-            //return false;
         }
 
         /// <summary>

@@ -1,10 +1,16 @@
-﻿using System;
-
-namespace GameFifteenVersionSeven
+﻿namespace GameFifteenVersionSeven
 {
-    // Strategy design pattern.
-    public class RandomShuffle : ShuffleStrategy
+    using System;
+
+    /// <summary>
+    /// This is class with puzzle shuffle methods.
+    /// </summary>
+    public class RandomShuffle : ShuffleStrategy // Strategy design pattern.
     {
+        /// <summary>
+        /// This method shuffle all cells in PuzzleField object.
+        /// </summary>
+        /// <param name="puzzleField">This is the field for shuffle.</param>
         public override void Shuffle(PuzzleField puzzleField)
         {
             Random randomGenerator = new Random();
@@ -19,14 +25,13 @@ namespace GameFifteenVersionSeven
                     selectedCell.Row = puzzleField.EmptyCell.Row - 1;
                     selectedCell.Col = puzzleField.EmptyCell.Col;
 
-                    if (CheckCellPosition(selectedCell, puzzleField))
+                    if (this.CheckCellPosition(selectedCell, puzzleField))
                     {
-                        RearrangePuzzleField(puzzleField, selectedCell);
+                        this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
                     {
                         randomNumber++;
-                        //i--;
                     }
                 }
 
@@ -35,14 +40,13 @@ namespace GameFifteenVersionSeven
                     selectedCell.Row = puzzleField.EmptyCell.Row;
                     selectedCell.Col = puzzleField.EmptyCell.Col + 1;
 
-                    if (CheckCellPosition(selectedCell, puzzleField))
+                    if (this.CheckCellPosition(selectedCell, puzzleField))
                     {
-                        RearrangePuzzleField(puzzleField, selectedCell);
+                        this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
                     {
                         randomNumber++;
-                        //i--;
                     }
                 }
 
@@ -51,9 +55,9 @@ namespace GameFifteenVersionSeven
                     selectedCell.Row = puzzleField.EmptyCell.Row + 1;
                     selectedCell.Col = puzzleField.EmptyCell.Col;
 
-                    if (CheckCellPosition(selectedCell, puzzleField))
+                    if (this.CheckCellPosition(selectedCell, puzzleField))
                     {
-                        RearrangePuzzleField(puzzleField, selectedCell);
+                        this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
                     {
@@ -64,33 +68,37 @@ namespace GameFifteenVersionSeven
                 if (randomNumber == 3)
                 {
                     selectedCell.Row = puzzleField.EmptyCell.Row;
-                    selectedCell.Col = puzzleField.EmptyCell.Col-1;
+                    selectedCell.Col = puzzleField.EmptyCell.Col - 1;
 
-                    if (CheckCellPosition(selectedCell, puzzleField))
+                    if (this.CheckCellPosition(selectedCell, puzzleField))
                     {
-                        RearrangePuzzleField(puzzleField, selectedCell);
+                        this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// This method change the positions of two cells.
+        /// </summary>
+        /// <param name="puzzleField">The field with cells.</param>
+        /// <param name="selectedCell">Cell for position change.</param>
         private void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
         {
-            //Cell emptySpaceCell = puzzleField.EmptyCell;
-            //puzzleField.EmptyCell.Context = selectedCell.Context;
-            //selectedCell.Context = emptySpaceCell.Context;
-            //puzzleField.EmptyCell.Row = selectedCell.Row;
-            //puzzleField.EmptyCell.Col = selectedCell.Col;
-            int index = selectedCell.Col + selectedCell.Row * puzzleField.MatrixSize;
-            selectedCell = puzzleField.Body[index];
+            int selectedCellFieldIndex = selectedCell.Col + selectedCell.Row * puzzleField.MatrixSize;
+            selectedCell = puzzleField.Body[selectedCellFieldIndex];
 
             int emptySpaceCell = puzzleField.EmptyCell.Context;
             puzzleField.EmptyCell.Context = selectedCell.Context;
             selectedCell.Context = emptySpaceCell;
-            //puzzleField.EmptyCell.Row = selectedCell.Row;
-            //puzzleField.EmptyCell.Col = selectedCell.Col;
         }
 
+        /// <summary>
+        /// This method validate the cell of FieldPuzzle.
+        /// </summary>
+        /// <param name="selectedCell">The selected cell.</param>
+        /// <param name="puzzleField">The field with cells.</param>
+        /// <returns>Returns "true" i the cell is in game field.</returns>
         private bool CheckCellPosition(Cell selectedCell, PuzzleField puzzleField)
         {
             return selectedCell.Row >= 0 && selectedCell.Row < puzzleField.MatrixSize && selectedCell.Col >= 0 && selectedCell.Col < puzzleField.MatrixSize;
