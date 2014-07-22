@@ -10,9 +10,12 @@ namespace GameFifteenVersionSeven
     /// </summary>
     public class GameEngine // Facade design pattern.
     {
+        private const int MatrixSize = 6;
+        private const int InitialValue = 0;
+
         public GameEngine()
         {
-            this.PuzzleField = new PuzzleField(4, 0);
+            this.PuzzleField = new PuzzleField(MatrixSize, InitialValue);
             this.CommandManager = new CommandManager();
             this.ShuffleStrategy = new RandomShuffle();
         }
@@ -20,10 +23,6 @@ namespace GameFifteenVersionSeven
         public CommandManager CommandManager { get; set; }
 
         public ShuffleStrategy ShuffleStrategy { get; set; }
-        /// <summary>
-        /// Random generator for random field shuffle.
-        /// </summary>
-        //private static readonly Random RandomGenerator = new Random();
 
         /// <summary>
         /// Game puzzle field.
@@ -31,15 +30,15 @@ namespace GameFifteenVersionSeven
         //private static int[,] puzzleField = new int[4, 4] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 0 } };
 
         public PuzzleField PuzzleField { get; set; }
-        /// <summary>
-        /// Row position of field empty space.
-        /// </summary>
-        private static int rowPositionOfEmptySpace = 3;
+        ///// <summary>
+        ///// Row position of field empty space.
+        ///// </summary>
+        //private static int rowPositionOfEmptySpace = 3;
 
-        /// <summary>
-        /// Column position of field empty space.
-        /// </summary>
-        private static int colPositionOfEmptySpace = 3;
+        ///// <summary>
+        ///// Column position of field empty space.
+        ///// </summary>
+        //private static int colPositionOfEmptySpace = 3;
 
         /// <summary>
         /// Boolean variable for whether the game continues.
@@ -243,14 +242,14 @@ namespace GameFifteenVersionSeven
         /// <returns>Returns "true" if the move are legal or "false" if the move are illegal.</returns>
         private bool CheckIsTheMoveAreLegal(Cell cell)
         {
-            if ((cell.Row == rowPositionOfEmptySpace - 1 || cell.Row == rowPositionOfEmptySpace + 1) 
-                && cell.Col == colPositionOfEmptySpace)
+            if ((cell.Row == this.PuzzleField.EmptyCell.Row - 1 || cell.Row == this.PuzzleField.EmptyCell.Row + 1)
+                && cell.Col == this.PuzzleField.EmptyCell.Col)
             {
                 return true;
             }
 
-            if ((cell.Row == rowPositionOfEmptySpace) && (cell.Col == colPositionOfEmptySpace - 1 
-                || cell.Col == colPositionOfEmptySpace + 1))
+            if ((cell.Row == this.PuzzleField.EmptyCell.Row) && (cell.Col == this.PuzzleField.EmptyCell.Col - 1
+                || cell.Col == this.PuzzleField.EmptyCell.Col + 1))
             {
                 return true;
             }
@@ -311,9 +310,10 @@ namespace GameFifteenVersionSeven
             }
             else
             {
-                Cell cellForChange = selectedCell;
-                selectedCell = this.PuzzleField.EmptyCell;
-                this.PuzzleField.EmptyCell = cellForChange;
+                int cellForChange = selectedCell.Context;
+                selectedCell.Context = this.PuzzleField.EmptyCell.Context;
+                this.PuzzleField.EmptyCell.Context = cellForChange;
+                countOfTotalMoves++;
                 //int currentlySelectedCell = puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber];
                 //puzzleField[rowPositionOfTheSelectedNumber, colPositionOfTheSelectedNumber] =
                 //    puzzleField[rowPositionOfEmptySpace, colPositionOfEmptySpace];
@@ -337,7 +337,7 @@ namespace GameFifteenVersionSeven
 
             if (inputIsANumber)
             {
-                if (selectedNumber >= 1 && selectedNumber <= 15)
+                if (selectedNumber >= (this.PuzzleField.InitialValue + 1) && selectedNumber <= (this.PuzzleField.MatrixSize * this.PuzzleField.MatrixSize))
                 {
                     MoveTheNumberOfField(selectedNumber);
                 }

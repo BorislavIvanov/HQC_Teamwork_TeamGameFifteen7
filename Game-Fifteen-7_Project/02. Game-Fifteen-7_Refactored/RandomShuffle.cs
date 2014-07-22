@@ -7,11 +7,9 @@ namespace GameFifteenVersionSeven
     {
         public override void Shuffle(PuzzleField puzzleField)
         {
-            //int rowPositionOfEmptySpace = puzzleField.EmptyCell.Row;
-            //int colPositionOfEmptySpace = puzzleField.EmptyCell.Col;
             Random randomGenerator = new Random();
 
-            for (int i = 3; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 int randomNumber = randomGenerator.Next(3);
                 Cell selectedCell = new Cell();
@@ -28,7 +26,7 @@ namespace GameFifteenVersionSeven
                     else
                     {
                         randomNumber++;
-                        i--;
+                        //i--;
                     }
                 }
 
@@ -44,7 +42,7 @@ namespace GameFifteenVersionSeven
                     else
                     {
                         randomNumber++;
-                        i--;
+                        //i--;
                     }
                 }
 
@@ -60,7 +58,6 @@ namespace GameFifteenVersionSeven
                     else
                     {
                         randomNumber++;
-                        i--;
                     }
                 }
 
@@ -73,21 +70,25 @@ namespace GameFifteenVersionSeven
                     {
                         RearrangePuzzleField(puzzleField, selectedCell);
                     }
-                    else
-                    {
-                        i--;
-                    }
                 }
             }
         }
 
         private void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
         {
-            Cell emptySpaceCell = puzzleField.EmptyCell;
-            puzzleField.EmptyCell = selectedCell;
-            selectedCell = emptySpaceCell;
-            puzzleField.EmptyCell.Row = selectedCell.Row;
-            puzzleField.EmptyCell.Col = selectedCell.Col;
+            //Cell emptySpaceCell = puzzleField.EmptyCell;
+            //puzzleField.EmptyCell.Context = selectedCell.Context;
+            //selectedCell.Context = emptySpaceCell.Context;
+            //puzzleField.EmptyCell.Row = selectedCell.Row;
+            //puzzleField.EmptyCell.Col = selectedCell.Col;
+            int index = selectedCell.Col + selectedCell.Row * puzzleField.MatrixSize;
+            selectedCell = puzzleField.Body[index];
+
+            int emptySpaceCell = puzzleField.EmptyCell.Context;
+            puzzleField.EmptyCell.Context = selectedCell.Context;
+            selectedCell.Context = emptySpaceCell;
+            //puzzleField.EmptyCell.Row = selectedCell.Row;
+            //puzzleField.EmptyCell.Col = selectedCell.Col;
         }
 
         private bool CheckCellPosition(Cell selectedCell, PuzzleField puzzleField)
