@@ -2,6 +2,7 @@
 
 namespace GameFifteenVersionSeven
 {
+    // Prototype design pattern.
     public class Cell : ICell, ICloneable
     {
         public int Context { get; set; }

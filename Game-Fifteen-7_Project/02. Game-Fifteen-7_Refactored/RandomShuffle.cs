@@ -2,6 +2,7 @@
 
 namespace GameFifteenVersionSeven
 {
+    // Strategy design pattern.
     public class RandomShuffle : ShuffleStrategy
     {
         public override void Shuffle(PuzzleField puzzleField)
@@ -10,7 +11,7 @@ namespace GameFifteenVersionSeven
             //int colPositionOfEmptySpace = puzzleField.EmptyCell.Col;
             Random randomGenerator = new Random();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 3; i < 1000; i++)
             {
                 int randomNumber = randomGenerator.Next(3);
                 Cell selectedCell = new Cell();
@@ -91,7 +92,7 @@ namespace GameFifteenVersionSeven
 
         private bool CheckCellPosition(Cell selectedCell, PuzzleField puzzleField)
         {
-            return selectedCell.Row >= 0 && selectedCell.Row <= puzzleField.MatrixSize && selectedCell.Col >= 0 && selectedCell.Col <= puzzleField.MatrixSize;
+            return selectedCell.Row >= 0 && selectedCell.Row < puzzleField.MatrixSize && selectedCell.Col >= 0 && selectedCell.Col < puzzleField.MatrixSize;
         }
     }
 }

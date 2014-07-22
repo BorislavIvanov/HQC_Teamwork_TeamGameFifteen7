@@ -52,6 +52,7 @@ namespace GameFifteenVersionSeven
             {
                 for (int col = 0; col < this.MatrixSize; col++)
                 {
+                    // Protoype design pattern.
                     Cell currentCell = singleCell.Clone() as Cell;
                     if (currentValue == this.MatrixSize * this.MatrixSize)
                     {

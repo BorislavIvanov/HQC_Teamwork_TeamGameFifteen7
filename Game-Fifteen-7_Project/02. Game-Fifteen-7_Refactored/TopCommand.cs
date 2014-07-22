@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
 
+    // Command design pattern.
     public class TopCommand : ICommand
     {
         public int CountTopPlayers { get; set; }

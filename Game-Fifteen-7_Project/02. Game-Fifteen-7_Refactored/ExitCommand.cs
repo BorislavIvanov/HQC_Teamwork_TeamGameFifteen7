@@ -2,6 +2,7 @@
 
 namespace GameFifteenVersionSeven
 {
+    // Command design pattern.
     public class ExitCommand : ICommand
     {
         public void Execute()

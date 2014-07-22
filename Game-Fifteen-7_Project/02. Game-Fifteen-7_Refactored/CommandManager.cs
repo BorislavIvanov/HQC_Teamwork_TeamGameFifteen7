@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameFifteenVersionSeven
 {
+    // Command design pattern.
     public class CommandManager
     {
         public void Proceed(ICommand command)

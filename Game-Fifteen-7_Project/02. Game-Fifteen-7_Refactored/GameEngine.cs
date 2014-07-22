@@ -8,9 +8,8 @@ namespace GameFifteenVersionSeven
     /// <summary>
     /// This method contains the core game logic.
     /// </summary>
-    public class GameEngine
+    public class GameEngine // Facade design pattern.
     {
-
         public GameEngine()
         {
             this.PuzzleField = new PuzzleField(4, 0);
@@ -62,6 +61,7 @@ namespace GameFifteenVersionSeven
         /// </summary>
         private static int countOfTopPlayers = topPlayersScores.Count;
 
+        // Command design pattern.
         public ICommand TopCommand { get; set; }
 
         public ICommand ExitCommand { get; set; }
@@ -73,6 +73,7 @@ namespace GameFifteenVersionSeven
         /// </summary>
         public void StartTheGame()
         {
+            // Command design pattern.
             DefineCommands(countOfTopPlayers, topPlayersScores);
 
             while (gameContinues)
