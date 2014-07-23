@@ -93,6 +93,8 @@
                     ConsolePrinter.PrintScoreboard(topPlayersScores);
 
                     Console.WriteLine();
+
+                    this.CommandManager.Proceed(this.RestartCommand);
                 }
             }
         }
@@ -102,11 +104,13 @@
         /// </summary>
         public void StartNewGame()
         {
+            this.Player = new Player();
+
             this.Player.TotalMoves = 0;
 
             this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
-            ConsolePrinter.PrintTheGameField(this.PuzzleField);
+            //ConsolePrinter.PrintTheGameField(this.PuzzleField);
         }
 
         private void DefineCommands(List<Player> topPlayersScores)
@@ -165,9 +169,12 @@
             }
             else
             {
+                Cell emptyCell = this.PuzzleField.EmptyCell;
+
                 int cellForChange = selectedCell.Content;
                 selectedCell.Content = this.PuzzleField.EmptyCell.Content;
-                this.PuzzleField.EmptyCell.Content = cellForChange;
+                emptyCell.Content = cellForChange;
+
                 this.Player.TotalMoves++;
 
                 ConsolePrinter.PrintTheGameField(this.PuzzleField);
@@ -230,6 +237,7 @@
             for (int i = 0; i < this.PuzzleField.Body.Count - 1; i++)
             {
                 Cell currentCell = this.PuzzleField.Body[i];
+
                 if (currentCell.Content != i + 1)
                 {
                     return false;

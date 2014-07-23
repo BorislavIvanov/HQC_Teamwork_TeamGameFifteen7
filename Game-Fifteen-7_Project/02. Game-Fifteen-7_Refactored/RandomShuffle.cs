@@ -7,7 +7,7 @@
     /// </summary>
     public class RandomShuffle : ShuffleStrategy // Strategy design pattern.
     {
-        private const int NumberOfShuffling = 3;
+        private const int NumberOfShuffling = 5;
 
         /// <summary>
         /// This method shuffle all cells in PuzzleField object.
