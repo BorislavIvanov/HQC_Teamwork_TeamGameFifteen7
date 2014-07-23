@@ -8,7 +8,6 @@
     /// </summary>
     public class PuzzleField //implementation of Singleton design pattern
     {
-        private int initialValue;
         private int matrixSize;
         private static PuzzleField instance = null;
         private static Object mutex = new Object();
@@ -18,10 +17,9 @@
         /// </summary>
         /// <param name="size">Size of the field.</param>
         /// <param name="initialValue">Initial value of the field.</param>
-        public PuzzleField(int size, int initialValue)
+        public PuzzleField(int size)
         {
             this.MatrixSize = size;
-            this.InitialValue = initialValue;
             this.Body = new List<Cell>();
             this.FillPuzzleBody();
         }
@@ -34,33 +32,33 @@
                 {
                     if (instance == null)
                     {
-                        instance = new PuzzleField(size, initialValue);
+                        instance = new PuzzleField(size);
                     }
                 }
             }
 
             return instance;
         }
-        /// <summary>
-        /// Gets or sets the Initial value of puzzle field.
-        /// </summary>
-        public int InitialValue
-        {
-            get
-            {
-                return this.initialValue;
-            }
+        ///// <summary>
+        ///// Gets or sets the Initial value of puzzle field.
+        ///// </summary>
+        //public int InitialValue
+        //{
+        //    get
+        //    {
+        //        return this.initialValue;
+        //    }
 
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException("The initial value must be a positive integer");
-                }
+        //    set
+        //    {
+        //        if (value < 0)
+        //        {
+        //            throw new ArgumentException("The initial value must be a positive integer");
+        //        }
 
-                this.initialValue = value;
-            }
-        }
+        //        this.initialValue = value;
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the matrix size of puzzle field.
@@ -109,7 +107,7 @@
         public void FillPuzzleBody()
         {
             Cell singleCell = new Cell();
-            int currentValue = this.InitialValue + 1;
+            int currentValue = 1;
 
             for (int row = 0; row < this.MatrixSize; row++)
             {
@@ -143,7 +141,7 @@
             for (int i = 0; i < this.Body.Count; i++)
             {
                 searchedCell = this.Body[i];
-                if (searchedCell.Content == this.InitialValue)
+                if (searchedCell.Content == 0)
                 {
                     break;
                 }

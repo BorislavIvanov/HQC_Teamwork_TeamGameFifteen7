@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlayerAdapter.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="CommandManager.cs" />
     <Compile Include="ConsolePrinter.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="ICell.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PrintablePlayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PuzzleField.cs" />

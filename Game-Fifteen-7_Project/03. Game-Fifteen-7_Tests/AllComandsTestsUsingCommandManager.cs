@@ -45,11 +45,11 @@ namespace GameFifteenVersionSevenTests
         {
             Player testPlayer = new Player();
             GameEngine testEngine = new GameEngine(testPlayer);
-            testPlayer.TotalMoves = 2;
+            testEngine.Player.TotalMoves = 2;
             ICommand restartCommand = new RestartCommand(testEngine);
             testEngine.CommandManager.Proceed(restartCommand);
 
-            Assert.IsTrue(testPlayer.TotalMoves == 0);
+            Assert.IsTrue(testEngine.Player.TotalMoves == 0);
         }
 
         [TestMethod]

@@ -6,12 +6,12 @@
     /// <summary>
     /// This class contains methods that write to the console.
     /// </summary>
-    internal static class ConsolePrinter
+    public static class ConsolePrinter
     {
         /// <summary>
         /// This method write welcome message on screen.
         /// </summary>
-        internal static void PrintWelcomeMessage()
+        public static void PrintWelcomeMessage()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Welcome to the game “15”.");
@@ -27,7 +27,7 @@
         /// This method render the game field in console.
         /// </summary>
         /// <param name="puzzleField">Array containing field values.</param>
-        internal static void PrintTheGameField(PuzzleField puzzleField)
+        public static void PrintTheGameField(PuzzleField puzzleField)
         {
             Console.WriteLine(" -------------");
 
@@ -52,7 +52,7 @@
         /// </summary>
         /// <param name="countOfTopPlayers">Count of top players.</param>
         /// <param name="topPlayers">Array of top scores players.</param>
-        internal static void PrintScoreboard(List<Player> topPlayers)
+        public static void PrintScoreboard(List<Player> topPlayers)
         {
             int countOfTopPlayers = topPlayers.Count;
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -62,7 +62,7 @@
             {
                 for (int i = 0; i <= countOfTopPlayers - 1; i++)
                 {
-                    Player currentPlayer = new Adapter();
+                    Player currentPlayer = new PlayerAdapter();
                     currentPlayer.Name = topPlayers[i].Name;
                     currentPlayer.TotalMoves = topPlayers[i].TotalMoves;
                     currentPlayer.Print();
@@ -81,7 +81,7 @@
         /// This method render the final won screen.
         /// </summary>
         /// <param name="countOfTotalMoves">Count of moves made by player.</param>
-        internal static void PrintTheGameIsWon(int countOfTotalMoves)
+        public static void PrintTheGameIsWon(int countOfTotalMoves)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
 

@@ -192,7 +192,7 @@
 
             if (inputIsANumber)
             {
-                if (selectedNumber >= (this.PuzzleField.InitialValue + 1) && selectedNumber <= (this.PuzzleField.MatrixSize * this.PuzzleField.MatrixSize))
+                if (selectedNumber >= 1 && selectedNumber <= (this.PuzzleField.MatrixSize * this.PuzzleField.MatrixSize))
                 {
                     this.MoveTheNumberOfField(selectedNumber);
                 }

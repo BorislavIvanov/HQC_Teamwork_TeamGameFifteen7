@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameFifteenVersionSeven
 {
-    class Adapter : Player //Adapter design pattern
+    public class PlayerAdapter : Player //Adapter design pattern
     {
         PrintablePlayer printablePlayer = new PrintablePlayer();
 

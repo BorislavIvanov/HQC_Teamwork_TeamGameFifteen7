@@ -12,28 +12,11 @@ namespace GameFifteenVersionSevenTests
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
 
-        public void ShouldThrowArgumentException_SetInvalidInitalValue()
-        {
-            try
-            {
-                PuzzleField testField = new PuzzleField(4, -1);
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("The initial value must be a positive integer", ex.Message);
-                throw;
-            }
-
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-
         public void ShouldThrowArgumentException_SetInvalidMatrixSize()
         {
             try
             {
-                PuzzleField testField = new PuzzleField(-1, 0);
+                PuzzleField testField = new PuzzleField(-1);
             }
             catch (ArgumentException ex)
             {
@@ -45,7 +28,7 @@ namespace GameFifteenVersionSevenTests
         [TestMethod]
         public void ShouldBeEqual_FillPuzzleBodyMethodTest()
         {
-            PuzzleField testField = new PuzzleField(3, 0);
+            PuzzleField testField = new PuzzleField(3);
             List<Cell> expectedBody=new List<Cell>();
             Cell firstCell=new Cell();
             firstCell.Content = 1;
@@ -92,7 +75,7 @@ namespace GameFifteenVersionSevenTests
             expectedBody.Add(seventhCell);
             expectedBody.Add(eigthCell);
             expectedBody.Add(ninthCell);
-            Assert.AreEqual(expectedBody,testField.Body);
+            Assert.AreEqual(expectedBody[6].Content, testField.Body[6].Content);
         }
     }
 }
