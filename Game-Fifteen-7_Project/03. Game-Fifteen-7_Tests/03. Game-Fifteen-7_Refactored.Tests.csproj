@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Telerik.JustMock">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Telerik\JustMock\Libraries\Telerik.JustMock.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -57,6 +60,7 @@
     <Compile Include="CellClassTests.cs" />
     <Compile Include="AllComandsTestsUsingCommandManager.cs" />
     <Compile Include="PuzzleFieldClassTest.cs" />
+    <Compile Include="ProgramClassTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\02. Game-Fifteen-7_Refactored\02. Game-Fifteen-7_Refactored.csproj">

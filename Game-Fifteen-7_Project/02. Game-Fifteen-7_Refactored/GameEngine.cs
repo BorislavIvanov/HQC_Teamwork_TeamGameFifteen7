@@ -14,11 +14,6 @@
         private const int MatrixSize = 4;
 
         /// <summary>
-        /// Array of top players.
-        /// </summary>
-        private static List<Player> topPlayers = new List<Player>();
-
-        /// <summary>
         /// Initialize a new instance of the GameEngine class
         /// </summary>
         public GameEngine(Player player)
@@ -29,7 +24,13 @@
             this.PuzzleFieldManager = new PuzzleFieldManager(this.PuzzleField);
             this.ShuffleStrategy = new RandomShuffle();
             this.IsGameOver = false;
+            this.TopPlayers = new List<Player>();
         }
+
+        /// <summary>
+        /// Hold the list of top players
+        /// </summary>
+        public List<Player> TopPlayers { get; set; }
 
         /// <summary>
         /// Gets or sets the instance of Player.
@@ -87,7 +88,7 @@
         public void StartTheGame()
         {
             // Command design pattern.
-            this.DefineCommands(topPlayers);
+            this.DefineCommands(this.TopPlayers);
 
             while (!this.IsGameOver)
             {
@@ -124,7 +125,7 @@
 
                     this.AddNewTopPlayer(this.Player);
 
-                    ConsolePrinter.PrintScoreboard(topPlayers);
+                    ConsolePrinter.PrintScoreboard(this.TopPlayers);
 
                     Console.WriteLine();
 
@@ -275,12 +276,12 @@
         /// <param name="inputOfPlayerName">Name of the player.</param>
         private void AddNewTopPlayer(Player currentPlayer)
         {
-            topPlayers.Add(currentPlayer);
-            topPlayers.Sort((a, b) => a.TotalMoves.CompareTo(b.TotalMoves));
+            this.TopPlayers.Add(currentPlayer);
+            this.TopPlayers.Sort((a, b) => a.TotalMoves.CompareTo(b.TotalMoves));
 
-            if (topPlayers.Count == 4)
+            if (this.TopPlayers.Count == 4)
             {
-                topPlayers.RemoveAt(3);
+                this.TopPlayers.RemoveAt(3);
             }
         }
     }
