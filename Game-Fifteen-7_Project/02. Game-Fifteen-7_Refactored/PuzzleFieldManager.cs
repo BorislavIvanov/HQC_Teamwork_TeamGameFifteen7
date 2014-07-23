@@ -15,13 +15,13 @@ namespace GameFifteenVersionSeven
 
         public PuzzleField Field { get; set; }
 
-        public void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
+        public void RearrangePuzzleField(Cell selectedCell)
         {
-            int selectedCellFieldIndex = selectedCell.Col + (selectedCell.Row * puzzleField.MatrixSize);
-            selectedCell = puzzleField.Body[selectedCellFieldIndex];
+            int selectedCellFieldIndex = selectedCell.Col + (selectedCell.Row * this.Field.MatrixSize);
+            selectedCell = this.Field.Body[selectedCellFieldIndex];
 
-            int emptySpaceCell = puzzleField.EmptyCell.Content;
-            puzzleField.EmptyCell.Content = selectedCell.Content;
+            int emptySpaceCell = this.Field.EmptyCell.Content;
+            this.Field.EmptyCell.Content = selectedCell.Content;
             selectedCell.Content = emptySpaceCell;
         }
 

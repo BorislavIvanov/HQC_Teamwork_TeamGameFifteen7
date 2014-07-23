@@ -29,7 +29,7 @@
                     if (puzzleField.EmptyCell.Row > 0)
                     {
                         selectedCell.Row = puzzleField.EmptyCell.Row - 1;
-                        manager.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(selectedCell);
                     }
                     else
                     {
@@ -43,7 +43,7 @@
                     if (puzzleField.EmptyCell.Col < puzzleField.MatrixSize - 1)
                     {
                         selectedCell.Col = puzzleField.EmptyCell.Col + 1;
-                        manager.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(selectedCell);
                     }
                     else
                     {
@@ -57,7 +57,7 @@
                     if (puzzleField.EmptyCell.Row < puzzleField.MatrixSize - 1)
                     {
                         selectedCell.Row = puzzleField.EmptyCell.Row + 1;
-                        manager.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(selectedCell);
                     }
                     else
                     {
@@ -71,7 +71,7 @@
                     if (puzzleField.EmptyCell.Col > 0)
                     {
                         selectedCell.Col = puzzleField.EmptyCell.Col - 1;
-                        manager.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(selectedCell);
                     }
                 }
             }

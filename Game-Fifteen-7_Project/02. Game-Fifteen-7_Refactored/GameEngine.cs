@@ -76,10 +76,10 @@
 
                     this.ExecuteTheGameCommand(inputCommand);
 
-                    //if (this.IsGameOver)
-                    //{
-                    //    break;
-                    //}
+                    if (this.IsGameOver)
+                    {
+                        break;
+                    }
 
                     isGameWon = this.IsPuzzleSolved();
                 }
@@ -151,7 +151,7 @@
         /// <param name="number">Selected number of field from player.</param>
         private void MoveTheNumberOfField(int number)
         {
-            Cell selectedCell = this.PuzzleFieldManager.FindCellByItsContent(number);
+            Cell selectedCell = this.PuzzleFieldManager.FindCellByItsContent(number); //replace old for iteration
 
             bool isTheMoveAreLegal = this.CheckIsTheMoveAreLegal(selectedCell);
 
