@@ -41,5 +41,21 @@
                 Assert.AreEqual(expected, result);
             }
         }
+
+        [TestMethod]
+        public void PrintTheGameIsWonTest()
+        {
+            using (var writer = new StringWriter())
+            {
+                Console.SetOut(writer);
+                ConsolePrinter.PrintTheGameIsWon(5);
+
+                writer.Flush();
+
+                string result = writer.GetStringBuilder().ToString();
+                string expected = "Congratulations! You won the game in 5 moves.\r\nPlease enter your name for the top scoreboard: ";
+                Assert.AreEqual(expected, result);
+            }
+        }
     }
 }
