@@ -10,7 +10,7 @@ namespace GameFifteenVersionSeven
     /// </summary>
     public class GameEngine // Facade design pattern.
     {
-        private const int MatrixSize = 6;
+        private const int MatrixSize = 4;
         private const int InitialValue = 0;
 
         public GameEngine()
@@ -18,6 +18,7 @@ namespace GameFifteenVersionSeven
             this.PuzzleField = new PuzzleField(MatrixSize, InitialValue);
             this.CommandManager = new CommandManager();
             this.ShuffleStrategy = new RandomShuffle();
+            this.IsGameOver = false;
         }
 
         public CommandManager CommandManager { get; set; }
@@ -29,12 +30,16 @@ namespace GameFifteenVersionSeven
         /// <summary>
         /// Boolean variable for whether the game continues.
         /// </summary>
-        private static bool gameContinues = true;
+        //private static bool this.IsGameContinues = true;
+
+        public bool IsGameOver { get; set; }
 
         /// <summary>
         /// Number of moves from player for current game.
         /// </summary>
-        private static int countOfTotalMoves;
+        //private static int this.CountTotalMoves;
+
+        public int CountTotalMoves { get; set; }
 
         /// <summary>
         /// Array of top players.
@@ -61,9 +66,9 @@ namespace GameFifteenVersionSeven
             // Command design pattern.
             DefineCommands(countOfTopPlayers, topPlayersScores);
 
-            while (gameContinues)
+            while (!this.IsGameOver)
             {
-                countOfTotalMoves = 0;
+                this.CountTotalMoves = 0;
 
                 this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
@@ -80,7 +85,7 @@ namespace GameFifteenVersionSeven
 
                     ExecuteTheGameCommand(inputCommand);
 
-                    if (!gameContinues)
+                    if (this.IsGameOver)
                     {
                         break;
                     }
@@ -90,7 +95,7 @@ namespace GameFifteenVersionSeven
 
                 if (isGameWon)
                 {
-                    ConsolePrinter.PrintTheGameIsWon(countOfTotalMoves);
+                    ConsolePrinter.PrintTheGameIsWon(this.CountTotalMoves);
 
                     string inputOfPlayerName = Console.ReadLine();
 
@@ -115,7 +120,7 @@ namespace GameFifteenVersionSeven
         /// </summary>
         public void StartNewGame()
         {
-            countOfTotalMoves = 0;
+            this.CountTotalMoves = 0;
 
             this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
@@ -174,7 +179,7 @@ namespace GameFifteenVersionSeven
                 int cellForChange = selectedCell.Content;
                 selectedCell.Content = this.PuzzleField.EmptyCell.Content;
                 this.PuzzleField.EmptyCell.Content = cellForChange;
-                countOfTotalMoves++;
+                this.CountTotalMoves++;
 
                 ConsolePrinter.PrintTheGameField(this.PuzzleField);
             }
@@ -205,7 +210,7 @@ namespace GameFifteenVersionSeven
                 if (inputCommand == "exit")
                 {
                     this.CommandManager.Proceed(ExitCommand);
-                    gameContinues = false;
+                    this.IsGameOver = true;
                 }
                 else
                 {
@@ -250,9 +255,9 @@ namespace GameFifteenVersionSeven
         /// This method add new top player in top players rank list at end of the game.
         /// </summary>
         /// <param name="inputOfPlayerName">Name of the player.</param>
-        private static void AddNewTopPlayer(string inputOfPlayerName)
+        private void AddNewTopPlayer(string inputOfPlayerName)
         {
-            topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, countOfTotalMoves));
+            topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, this.CountTotalMoves));
             countOfTopPlayers = topPlayersScores.Count;
             topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 

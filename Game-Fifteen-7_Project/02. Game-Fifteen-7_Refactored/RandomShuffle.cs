@@ -7,6 +7,7 @@
     /// </summary>
     public class RandomShuffle : ShuffleStrategy // Strategy design pattern.
     {
+        private const int NumberOfShuffling = 3;
         /// <summary>
         /// This method shuffle all cells in PuzzleField object.
         /// </summary>
@@ -15,20 +16,20 @@
         {
             Random randomGenerator = new Random();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < NumberOfShuffling; i++)
             {
                 int randomNumber = randomGenerator.Next(3);
                 Cell selectedCell = new Cell();
 
                 if (randomNumber == 0)
                 {
-                    selectedCell.Row = puzzleField.EmptyCell.Row - 1;
                     selectedCell.Col = puzzleField.EmptyCell.Col;
-
-                    if (this.CheckCellPosition(selectedCell, puzzleField))
+                    if (puzzleField.EmptyCell.Row > 0)
                     {
+                        selectedCell.Row = puzzleField.EmptyCell.Row - 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
+
                     else
                     {
                         randomNumber++;
@@ -38,12 +39,12 @@
                 if (randomNumber == 1)
                 {
                     selectedCell.Row = puzzleField.EmptyCell.Row;
-                    selectedCell.Col = puzzleField.EmptyCell.Col + 1;
-
-                    if (this.CheckCellPosition(selectedCell, puzzleField))
+                    if (puzzleField.EmptyCell.Col < puzzleField.MatrixSize - 1)
                     {
+                        selectedCell.Col = puzzleField.EmptyCell.Col + 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
+
                     else
                     {
                         randomNumber++;
@@ -52,11 +53,11 @@
 
                 if (randomNumber == 2)
                 {
-                    selectedCell.Row = puzzleField.EmptyCell.Row + 1;
-                    selectedCell.Col = puzzleField.EmptyCell.Col;
 
-                    if (this.CheckCellPosition(selectedCell, puzzleField))
+                    selectedCell.Col = puzzleField.EmptyCell.Col;
+                    if (puzzleField.EmptyCell.Row < puzzleField.MatrixSize - 1)
                     {
+                        selectedCell.Row = puzzleField.EmptyCell.Row + 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
@@ -68,12 +69,17 @@
                 if (randomNumber == 3)
                 {
                     selectedCell.Row = puzzleField.EmptyCell.Row;
-                    selectedCell.Col = puzzleField.EmptyCell.Col - 1;
-
-                    if (this.CheckCellPosition(selectedCell, puzzleField))
+                    if (puzzleField.EmptyCell.Col > 0)
                     {
+                        selectedCell.Col = puzzleField.EmptyCell.Col - 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
+                    //selectedCell.Col = puzzleField.EmptyCell.Col - 1;
+
+                    //if (this.IsCellInPuzzleField(selectedCell, puzzleField))
+                    //{
+                    //    this.RearrangePuzzleField(puzzleField, selectedCell);
+                    //}
                 }
             }
         }
@@ -99,9 +105,9 @@
         /// <param name="selectedCell">The selected cell.</param>
         /// <param name="puzzleField">The field with cells.</param>
         /// <returns>Returns "true" i the cell is in game field.</returns>
-        private bool CheckCellPosition(Cell selectedCell, PuzzleField puzzleField)
-        {
-            return selectedCell.Row >= 0 && selectedCell.Row < puzzleField.MatrixSize && selectedCell.Col >= 0 && selectedCell.Col < puzzleField.MatrixSize;
-        }
+        //private bool IsCellInPuzzleField(Cell selectedCell, PuzzleField puzzleField)
+        //{
+        //    return selectedCell.Row >= 0 && selectedCell.Row < puzzleField.MatrixSize && selectedCell.Col >= 0 && selectedCell.Col < puzzleField.MatrixSize;
+        //}
     }
 }
