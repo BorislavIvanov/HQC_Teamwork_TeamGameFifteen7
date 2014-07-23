@@ -1,37 +1,32 @@
 ﻿using System;
-using System.IO;
-using GameFifteenVersionSeven;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using GameFifteenVersionSeven;
+using System.IO;
 
 namespace GameFifteenVersionSevenTests
 {
     [TestClass]
     public class ProgramClassTests
     {
-        
         [TestMethod]
-        public void ShouldReturnTrue_CheckIsIncreasingTotalPlayerMovesOrPrintSpecificMessage()
+        public void ShouldReturnSpecificString_MainMethodTest()
         {
-            Player testPlayer = new Player();
-            GameEngine testEngine = new GameEngine(testPlayer);
             var oldIn = Console.In;
-            Console.SetIn(new StringReader("5\r\nexit"));
+            Console.SetIn(new StringReader("A\r\nexit"));
             string result = String.Empty;
             using (var writer = new StringWriter())
             {
                 Console.SetOut(writer);
-                testEngine.StartTheGame();
+                Program.Main();
 
                 writer.Flush();
 
                 result = writer.GetStringBuilder().ToString();
             }
             Console.SetIn(oldIn);
-            int expectedPlayerMoves = 1;
-            string expectedMessage = "Illegal move!\r\nEnter a number to move: Good bye!\r\n";
-            string resultString = result.Substring(result.Length - 50);
-            Assert.IsTrue(expectedPlayerMoves == testPlayer.TotalMoves || expectedMessage == resultString);
-
+            string expectedMessage = "Illegal command!\r\nEnter a number to move: Good bye!\r\n";
+            string resultString = result.Substring(result.Length - 53);
+            Assert.IsTrue(expectedMessage == resultString);
         }
     }
 }

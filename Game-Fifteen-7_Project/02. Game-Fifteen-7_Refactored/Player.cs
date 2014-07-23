@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameFifteenVersionSeven
+﻿namespace GameFifteenVersionSeven
 {
     public class Player
     {
+        /// <summary>
+        /// Initializes a new instance of the Player class
+        /// </summary>
         public Player()
         {
             this.TotalMoves = 0;
@@ -16,6 +13,9 @@ namespace GameFifteenVersionSeven
         public string Name { get; set; }
         public int TotalMoves { get; set; }
 
+        /// <summary>
+        /// Virtual method to implement Adapter design pattern
+        /// </summary>
         public virtual void Print() //To implement Adapter design pattern
         {
         }
