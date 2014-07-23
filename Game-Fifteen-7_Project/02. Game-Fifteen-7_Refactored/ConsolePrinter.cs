@@ -52,7 +52,7 @@
         /// </summary>
         /// <param name="countOfTopPlayers">Count of top players.</param>
         /// <param name="topPlayersScores">Array of top scores players.</param>
-        internal static void PrintScoreboard(List<Tuple<string, int>> topPlayersScores)
+        internal static void PrintScoreboard(List<Player> topPlayersScores)
         {
             int countOfTopPlayers = topPlayersScores.Count;
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -62,7 +62,7 @@
             {
                 for (int i = 0; i <= countOfTopPlayers - 1; i++)
                 {
-                    Console.WriteLine("{0} by {1}", topPlayersScores[i].Item1, topPlayersScores[i].Item2);
+                    Console.WriteLine("{0} by {1}", topPlayersScores[i].Name, topPlayersScores[i].TotalMoves);
                 }
             }
             else

@@ -14,18 +14,21 @@
         /// <summary>
         /// Array of top players.
         /// </summary>
-        private static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
+        private static List<Player> topPlayersScores = new List<Player>();
 
         /// <summary>
         /// Initialize a new instance of the GameEngine class
         /// </summary>
-        public GameEngine()
+        public GameEngine(Player player)
         {
+            this.Player = player;
             this.PuzzleField = new PuzzleField(MatrixSize, InitialValue);
             this.CommandManager = new CommandManager();
             this.ShuffleStrategy = new RandomShuffle();
             this.IsGameOver = false;
         }
+
+        public Player Player { get; set; }
 
         public CommandManager CommandManager { get; set; }
 
@@ -35,7 +38,7 @@
 
         public bool IsGameOver { get; set; }
 
-        public int CountTotalMoves { get; set; }
+        //public int CountTotalMoves { get; set; }
 
         // Command design pattern.
         public ICommand TopCommand { get; set; }
@@ -54,7 +57,7 @@
 
             while (!this.IsGameOver)
             {
-                this.CountTotalMoves = 0;
+                //this.CountTotalMoves = 0;
 
                 this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
@@ -81,11 +84,11 @@
 
                 if (isGameWon)
                 {
-                    ConsolePrinter.PrintTheGameIsWon(this.CountTotalMoves);
+                    ConsolePrinter.PrintTheGameIsWon(this.Player.TotalMoves);
 
-                    string inputOfPlayerName = Console.ReadLine();
+                    this.Player.Name = Console.ReadLine();
 
-                    this.AddNewTopPlayer(inputOfPlayerName);
+                    this.AddNewTopPlayer(this.Player);
 
                     ConsolePrinter.PrintScoreboard(topPlayersScores);
 
@@ -99,14 +102,14 @@
         /// </summary>
         public void StartNewGame()
         {
-            this.CountTotalMoves = 0;
+            this.Player.TotalMoves = 0;
 
             this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
             ConsolePrinter.PrintTheGameField(this.PuzzleField);
         }
 
-        private void DefineCommands(List<Tuple<string, int>> topPlayersScores)
+        private void DefineCommands(List<Player> topPlayersScores)
         {
             this.TopCommand = new TopCommand(topPlayersScores);
             this.ExitCommand = new ExitCommand(this);
@@ -165,7 +168,7 @@
                 int cellForChange = selectedCell.Content;
                 selectedCell.Content = this.PuzzleField.EmptyCell.Content;
                 this.PuzzleField.EmptyCell.Content = cellForChange;
-                this.CountTotalMoves++;
+                this.Player.TotalMoves++;
 
                 ConsolePrinter.PrintTheGameField(this.PuzzleField);
             }
@@ -240,10 +243,10 @@
         /// This method add new top player in top players rank list at end of the game.
         /// </summary>
         /// <param name="inputOfPlayerName">Name of the player.</param>
-        private void AddNewTopPlayer(string inputOfPlayerName)
+        private void AddNewTopPlayer(Player currentPlayer)
         {
-            topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, this.CountTotalMoves));
-            topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
+            topPlayersScores.Add(currentPlayer);
+            topPlayersScores.Sort((a, b) => a.TotalMoves.CompareTo(b.TotalMoves));
 
             if (topPlayersScores.Count == 4)
             {

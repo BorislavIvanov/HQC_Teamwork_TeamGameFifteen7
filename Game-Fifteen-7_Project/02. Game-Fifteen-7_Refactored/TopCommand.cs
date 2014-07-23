@@ -12,7 +12,7 @@
         /// Initialize a new instance of the TopCommand class
         /// </summary>
         /// <param name="topPlayersScores"></param>
-        public TopCommand(List<Tuple<string, int>> topPlayersScores)
+        public TopCommand(List<Player> topPlayersScores)
         {
             this.CountTopPlayers = topPlayersScores.Count;
             this.TopPlayersScores = topPlayersScores;
@@ -26,7 +26,7 @@
         /// <summary>
         /// Gets of sets the top scores players.
         /// </summary>
-        public List<Tuple<string, int>> TopPlayersScores { get; set; }
+        public List<Player> TopPlayersScores { get; set; }
 
         /// <summary>
         /// This method execute the top command.

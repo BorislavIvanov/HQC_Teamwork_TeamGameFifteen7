@@ -35,7 +35,6 @@ namespace GameFifteenVersionSevenTests
                 Assert.AreEqual("The content must be a positive integer!", ex.Message);
                 throw;
             }
-
         }
 
         [TestMethod]
@@ -53,7 +52,6 @@ namespace GameFifteenVersionSevenTests
                 Assert.AreEqual("The number of column must be a positive integer!", ex.Message);
                 throw;
             }
-
         }
 
         [TestMethod]
@@ -71,7 +69,6 @@ namespace GameFifteenVersionSevenTests
                 Assert.AreEqual("The number of row must be a positive integer!", ex.Message);
                 throw;
             }
-
         }
 
         [TestMethod]

@@ -15,7 +15,8 @@
         /// </summary>
         public static void Main()
         {
-            GameEngine gameEngine = new GameEngine();
+            Player currentPlayer = new Player();
+            GameEngine gameEngine = new GameEngine(currentPlayer);
             gameEngine.StartTheGame();
         }
     }

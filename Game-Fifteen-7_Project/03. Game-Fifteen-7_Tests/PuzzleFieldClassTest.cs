@@ -40,7 +40,6 @@ namespace GameFifteenVersionSevenTests
                 Assert.AreEqual("The matrix size must be a positive integer", ex.Message);
                 throw;
             }
-
         }
 
         [TestMethod]

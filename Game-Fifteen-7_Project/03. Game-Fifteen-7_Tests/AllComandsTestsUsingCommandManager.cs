@@ -12,7 +12,8 @@ namespace GameFifteenVersionSevenTests
         [TestMethod]
         public void ShouldPrintFinalMessage_ExitCommandTest()
         {
-            GameEngine testEngine = new GameEngine();
+            Player testPlayer = new Player();
+            GameEngine testEngine = new GameEngine(testPlayer);
             ICommand exitCommand = new ExitCommand(testEngine);
 
             using (var writer = new StringWriter())
@@ -31,7 +32,8 @@ namespace GameFifteenVersionSevenTests
         [TestMethod]
         public void ShouldReturnTrue_IsGameOver_ExitCommandTest()
         {
-            GameEngine testEngine = new GameEngine();
+            Player testPlayer =new Player();
+            GameEngine testEngine = new GameEngine(testPlayer);
             ICommand exitCommand = new ExitCommand(testEngine);
             testEngine.CommandManager.Proceed(exitCommand);
 
@@ -41,19 +43,21 @@ namespace GameFifteenVersionSevenTests
         [TestMethod]
         public void ShouldReturnTrue_RestartCommandTest_ChangeCountTotalMoves()
         {
-            GameEngine testEngine = new GameEngine();
-            testEngine.CountTotalMoves=2;
+            Player testPlayer = new Player();
+            GameEngine testEngine = new GameEngine(testPlayer);
+            testPlayer.TotalMoves = 2;
             ICommand restartCommand = new RestartCommand(testEngine);
             testEngine.CommandManager.Proceed(restartCommand);
 
-            Assert.IsTrue(testEngine.CountTotalMoves==0);
+            Assert.IsTrue(testPlayer.TotalMoves == 0);
         }
 
         [TestMethod]
         public void ShouldPrintEmptyScoreboardMessage_TopCommandTest()
         {
-            GameEngine testEngine = new GameEngine();
-            List<Tuple<string, int>> topPlayersScores=new List<Tuple<string, int>>();
+            Player testPlayer = new Player();
+            GameEngine testEngine = new GameEngine(testPlayer);
+            List<Player> topPlayersScores = new List<Player>();
             ICommand topCommand = new TopCommand(topPlayersScores);
             using (var writer = new StringWriter())
             {
@@ -71,10 +75,19 @@ namespace GameFifteenVersionSevenTests
         [TestMethod]
         public void ShouldPrintSampleScoreboardMessage_TopCommandTest()
         {
-            GameEngine testEngine = new GameEngine();
-            List<Tuple<string, int>> topPlayersScores=new List<Tuple<string, int>>();
-            topPlayersScores.Add(new Tuple<string, int>("Pesho", 4));
-            topPlayersScores.Add(new Tuple<string, int>("Spiro", 6));
+            Player firstPlayer = new Player();
+            firstPlayer.Name = "Pesho";
+            firstPlayer.TotalMoves = 4;
+            GameEngine testEngine = new GameEngine(firstPlayer);
+            List<Player> topPlayersScores = new List<Player>();
+
+            Player secondPlayer=new Player();
+            secondPlayer.Name = "Spiro";
+            secondPlayer.TotalMoves = 6;
+
+            topPlayersScores.Add(firstPlayer);
+            topPlayersScores.Add(secondPlayer);
+
             ICommand topCommand = new TopCommand(topPlayersScores);
             using (var writer = new StringWriter())
             {
