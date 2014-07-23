@@ -9,12 +9,11 @@
     public class GameEngine // Facade design pattern.
     {
         private const int MatrixSize = 4;
-        private const int InitialValue = 0;
 
         /// <summary>
         /// Array of top players.
         /// </summary>
-        private static List<Player> topPlayersScores = new List<Player>();
+        private static List<Player> topPlayers = new List<Player>();
 
         /// <summary>
         /// Initialize a new instance of the GameEngine class
@@ -22,8 +21,9 @@
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.PuzzleField = PuzzleField.GetInstance(MatrixSize, InitialValue); //using Singleton design pattern
+            this.PuzzleField = PuzzleField.GetInstance(MatrixSize); //using Singleton design pattern
             this.CommandManager = new CommandManager();
+            this.PuzzleFieldManager=new PuzzleFieldManager(this.PuzzleField);
             this.ShuffleStrategy = new RandomShuffle();
             this.IsGameOver = false;
         }
@@ -31,6 +31,8 @@
         public Player Player { get; set; }
 
         public CommandManager CommandManager { get; set; }
+
+        public PuzzleFieldManager PuzzleFieldManager { get; set; }
 
         public ShuffleStrategy ShuffleStrategy { get; set; }
 
@@ -53,13 +55,13 @@
         public void StartTheGame()
         {
             // Command design pattern.
-            this.DefineCommands(topPlayersScores);
+            this.DefineCommands(topPlayers);
 
             while (!this.IsGameOver)
             {
                 //this.CountTotalMoves = 0;
 
-                this.ShuffleStrategy.Shuffle(this.PuzzleField);
+                this.ShuffleStrategy.Shuffle(this.PuzzleFieldManager);
 
                 ConsolePrinter.PrintWelcomeMessage();
 
@@ -74,10 +76,10 @@
 
                     this.ExecuteTheGameCommand(inputCommand);
 
-                    if (this.IsGameOver)
-                    {
-                        break;
-                    }
+                    //if (this.IsGameOver)
+                    //{
+                    //    break;
+                    //}
 
                     isGameWon = this.IsPuzzleSolved();
                 }
@@ -90,7 +92,7 @@
 
                     this.AddNewTopPlayer(this.Player);
 
-                    ConsolePrinter.PrintScoreboard(topPlayersScores);
+                    ConsolePrinter.PrintScoreboard(topPlayers);
 
                     Console.WriteLine();
 
@@ -108,7 +110,7 @@
 
             this.Player.TotalMoves = 0;
 
-            this.ShuffleStrategy.Shuffle(this.PuzzleField);
+            this.ShuffleStrategy.Shuffle(this.PuzzleFieldManager);
 
             //ConsolePrinter.PrintTheGameField(this.PuzzleField);
         }
@@ -149,17 +151,7 @@
         /// <param name="number">Selected number of field from player.</param>
         private void MoveTheNumberOfField(int number)
         {
-            Cell selectedCell = new Cell();
-
-            for (int i = 0; i < this.PuzzleField.Body.Count; i++)
-            {
-                Cell currentCell = this.PuzzleField.Body[i];
-                if (currentCell.Content == number)
-                {
-                    selectedCell = currentCell;
-                    break;
-                }
-            }
+            Cell selectedCell = this.PuzzleFieldManager.FindCellByItsContent(number);
 
             bool isTheMoveAreLegal = this.CheckIsTheMoveAreLegal(selectedCell);
 
@@ -169,11 +161,7 @@
             }
             else
             {
-                Cell emptyCell = this.PuzzleField.EmptyCell;
-
-                int cellForChange = selectedCell.Content;
-                selectedCell.Content = this.PuzzleField.EmptyCell.Content;
-                emptyCell.Content = cellForChange;
+                this.PuzzleFieldManager.RearrangePuzzleField(selectedCell);
 
                 this.Player.TotalMoves++;
 
@@ -253,12 +241,12 @@
         /// <param name="inputOfPlayerName">Name of the player.</param>
         private void AddNewTopPlayer(Player currentPlayer)
         {
-            topPlayersScores.Add(currentPlayer);
-            topPlayersScores.Sort((a, b) => a.TotalMoves.CompareTo(b.TotalMoves));
+            topPlayers.Add(currentPlayer);
+            topPlayers.Sort((a, b) => a.TotalMoves.CompareTo(b.TotalMoves));
 
-            if (topPlayersScores.Count == 4)
+            if (topPlayers.Count == 4)
             {
-                topPlayersScores.RemoveAt(3);
+                topPlayers.RemoveAt(3);
             }
         }
     }

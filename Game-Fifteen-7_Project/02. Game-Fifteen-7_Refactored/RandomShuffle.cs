@@ -13,8 +13,9 @@
         /// This method shuffle all cells in PuzzleField object.
         /// </summary>
         /// <param name="puzzleField">This is the field for shuffle.</param>
-        public override void Shuffle(PuzzleField puzzleField)
+        public override void Shuffle(PuzzleFieldManager manager)
         {
+            PuzzleField puzzleField = manager.Field;
             Random randomGenerator = new Random();
 
             for (int i = 0; i < NumberOfShuffling; i++)
@@ -28,7 +29,7 @@
                     if (puzzleField.EmptyCell.Row > 0)
                     {
                         selectedCell.Row = puzzleField.EmptyCell.Row - 1;
-                        this.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
                     {
@@ -42,7 +43,7 @@
                     if (puzzleField.EmptyCell.Col < puzzleField.MatrixSize - 1)
                     {
                         selectedCell.Col = puzzleField.EmptyCell.Col + 1;
-                        this.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
                     {
@@ -56,7 +57,7 @@
                     if (puzzleField.EmptyCell.Row < puzzleField.MatrixSize - 1)
                     {
                         selectedCell.Row = puzzleField.EmptyCell.Row + 1;
-                        this.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                     else
                     {
@@ -70,7 +71,7 @@
                     if (puzzleField.EmptyCell.Col > 0)
                     {
                         selectedCell.Col = puzzleField.EmptyCell.Col - 1;
-                        this.RearrangePuzzleField(puzzleField, selectedCell);
+                        manager.RearrangePuzzleField(puzzleField, selectedCell);
                     }
                 }
             }
@@ -81,14 +82,14 @@
         /// </summary>
         /// <param name="puzzleField">The field with cells.</param>
         /// <param name="selectedCell">Cell for position change.</param>
-        private void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
-        {
-            int selectedCellFieldIndex = selectedCell.Col + (selectedCell.Row * puzzleField.MatrixSize);
-            selectedCell = puzzleField.Body[selectedCellFieldIndex];
+        //private void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
+        //{
+        //    int selectedCellFieldIndex = selectedCell.Col + (selectedCell.Row * puzzleField.MatrixSize);
+        //    selectedCell = puzzleField.Body[selectedCellFieldIndex];
 
-            int emptySpaceCell = puzzleField.EmptyCell.Content;
-            puzzleField.EmptyCell.Content = selectedCell.Content;
-            selectedCell.Content = emptySpaceCell;
-        }
+        //    int emptySpaceCell = puzzleField.EmptyCell.Content;
+        //    puzzleField.EmptyCell.Content = selectedCell.Content;
+        //    selectedCell.Content = emptySpaceCell;
+        //}
     }
 }

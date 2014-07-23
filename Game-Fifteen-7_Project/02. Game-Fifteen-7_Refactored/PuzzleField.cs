@@ -24,7 +24,7 @@
             this.FillPuzzleBody();
         }
 
-        public static PuzzleField GetInstance(int size, int initialValue)  //implementation of Singleton design pattern
+        public static PuzzleField GetInstance(int size)  //implementation of Singleton design pattern
         {
             if (instance == null)
             {
