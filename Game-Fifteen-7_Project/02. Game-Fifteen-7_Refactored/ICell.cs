@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets or sets the content of Cell.
         /// </summary>
-        int Context { get; set; }
+        int Content { get; set; }
 
         /// <summary>
         /// Gets or sets the row of Cell.

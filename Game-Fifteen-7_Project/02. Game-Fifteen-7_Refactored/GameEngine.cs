@@ -156,7 +156,7 @@ namespace GameFifteenVersionSeven
             for (int i = 0; i < this.PuzzleField.Body.Count; i++)
             {
                 Cell currentCell = this.PuzzleField.Body[i];
-                if (currentCell.Context == number)
+                if (currentCell.Content == number)
                 {
                     selectedCell = currentCell;
                     break;
@@ -171,9 +171,9 @@ namespace GameFifteenVersionSeven
             }
             else
             {
-                int cellForChange = selectedCell.Context;
-                selectedCell.Context = this.PuzzleField.EmptyCell.Context;
-                this.PuzzleField.EmptyCell.Context = cellForChange;
+                int cellForChange = selectedCell.Content;
+                selectedCell.Content = this.PuzzleField.EmptyCell.Content;
+                this.PuzzleField.EmptyCell.Content = cellForChange;
                 countOfTotalMoves++;
 
                 ConsolePrinter.PrintTheGameField(this.PuzzleField);
@@ -237,7 +237,7 @@ namespace GameFifteenVersionSeven
             for (int i = 0; i < this.PuzzleField.Body.Count - 1; i++)
             {
                 Cell currentCell = this.PuzzleField.Body[i];
-                if (currentCell.Context != i + 1)
+                if (currentCell.Content != i + 1)
                 {
                     return false;
                 }

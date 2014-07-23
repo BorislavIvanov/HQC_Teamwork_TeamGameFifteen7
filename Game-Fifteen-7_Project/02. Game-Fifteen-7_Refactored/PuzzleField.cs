@@ -70,7 +70,7 @@
                         currentValue = 0;
                     }
 
-                    currentCell.Context = currentValue;
+                    currentCell.Content = currentValue;
                     currentCell.Row = row;
                     currentCell.Col = col;
                     this.Body.Add(currentCell);
@@ -90,7 +90,7 @@
             for (int i = 0; i < this.Body.Count; i++)
             {
                 searchedCell = this.Body[i];
-                if (searchedCell.Context == this.InitialValue)
+                if (searchedCell.Content == this.InitialValue)
                 {
                     break;
                 }

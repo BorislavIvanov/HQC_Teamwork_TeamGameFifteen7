@@ -88,9 +88,9 @@
             int selectedCellFieldIndex = selectedCell.Col + selectedCell.Row * puzzleField.MatrixSize;
             selectedCell = puzzleField.Body[selectedCellFieldIndex];
 
-            int emptySpaceCell = puzzleField.EmptyCell.Context;
-            puzzleField.EmptyCell.Context = selectedCell.Context;
-            selectedCell.Context = emptySpaceCell;
+            int emptySpaceCell = puzzleField.EmptyCell.Content;
+            puzzleField.EmptyCell.Content = selectedCell.Content;
+            selectedCell.Content = emptySpaceCell;
         }
 
         /// <summary>

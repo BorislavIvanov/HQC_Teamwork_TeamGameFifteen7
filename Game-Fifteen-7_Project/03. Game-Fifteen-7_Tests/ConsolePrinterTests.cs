@@ -1,4 +1,4 @@
-﻿namespace GameFifteenVersionSeven.Tests
+﻿namespace GameFifteenVersionSevenTests
 {
     using System;
     using GameFifteenVersionSeven;
