@@ -22,7 +22,7 @@
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.PuzzleField = new PuzzleField(MatrixSize, InitialValue);
+            this.PuzzleField = PuzzleField.GetInstance(MatrixSize, InitialValue);
             this.CommandManager = new CommandManager();
             this.ShuffleStrategy = new RandomShuffle();
             this.IsGameOver = false;

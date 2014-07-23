@@ -6,10 +6,12 @@
     /// <summary>
     /// PuzzleField class.
     /// </summary>
-    public class PuzzleField
+    public class PuzzleField //implementation of Singleton design pattern
     {
         private int initialValue;
         private int matrixSize;
+        private static PuzzleField instance = null;
+        private static Object mutex = new Object();
 
         /// <summary>
         /// Initializes a new instance of the PuzzleField class.
@@ -24,6 +26,21 @@
             this.FillPuzzleBody();
         }
 
+        public static PuzzleField GetInstance(int size, int initialValue)  //implementation of Singleton design pattern
+        {
+            if (instance == null)
+            {
+                lock (mutex) // lock the object because of possible two threads requests
+                {
+                    if (instance == null)
+                    {
+                        instance = new PuzzleField(size, initialValue);
+                    }
+                }
+            }
+
+            return instance;
+        }
         /// <summary>
         /// Gets or sets the Initial value of puzzle field.
         /// </summary>
