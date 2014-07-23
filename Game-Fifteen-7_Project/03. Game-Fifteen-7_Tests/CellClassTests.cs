@@ -7,7 +7,7 @@ using GameFifteenVersionSeven;
 namespace GameFifteenVersionSevenTests
 {
     [TestClass]
-    public class CellClassTest
+    public class CellClassTests
     {
         [TestMethod]
         public void ShouldReturnFalse_CompareContextOfOriginalAndClonedInstances()

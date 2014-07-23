@@ -27,17 +27,7 @@ namespace GameFifteenVersionSeven
 
         public PuzzleField PuzzleField { get; set; }
 
-        /// <summary>
-        /// Boolean variable for whether the game continues.
-        /// </summary>
-        //private static bool this.IsGameContinues = true;
-
         public bool IsGameOver { get; set; }
-
-        /// <summary>
-        /// Number of moves from player for current game.
-        /// </summary>
-        //private static int this.CountTotalMoves;
 
         public int CountTotalMoves { get; set; }
 
@@ -111,7 +101,7 @@ namespace GameFifteenVersionSeven
         private void DefineCommands(int countOfTopPlayers, List<Tuple<string, int>> topPlayersScores)
         {
             this.TopCommand = new TopCommand(countOfTopPlayers, topPlayersScores);
-            this.ExitCommand = new ExitCommand();
+            this.ExitCommand = new ExitCommand(this);
             this.RestartCommand = new RestartCommand(this);
         }
 
@@ -210,7 +200,6 @@ namespace GameFifteenVersionSeven
                 if (inputCommand == "exit")
                 {
                     this.CommandManager.Proceed(ExitCommand);
-                    this.IsGameOver = true;
                 }
                 else
                 {
