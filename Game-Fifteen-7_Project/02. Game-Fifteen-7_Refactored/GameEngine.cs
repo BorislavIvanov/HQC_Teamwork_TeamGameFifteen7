@@ -36,11 +36,6 @@ namespace GameFifteenVersionSeven
         /// </summary>
         private static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
 
-        /// <summary>
-        /// Count of top players.
-        /// </summary>
-        private static int countOfTopPlayers = topPlayersScores.Count;
-
         // Command design pattern.
         public ICommand TopCommand { get; set; }
 
@@ -54,7 +49,7 @@ namespace GameFifteenVersionSeven
         public void StartTheGame()
         {
             // Command design pattern.
-            DefineCommands(countOfTopPlayers, topPlayersScores);
+            DefineCommands(topPlayersScores);
 
             while (!this.IsGameOver)
             {
@@ -91,16 +86,16 @@ namespace GameFifteenVersionSeven
 
                     AddNewTopPlayer(inputOfPlayerName);
 
-                    ConsolePrinter.PrintScoreboard(countOfTopPlayers, topPlayersScores);
+                    ConsolePrinter.PrintScoreboard(topPlayersScores);
 
                     Console.WriteLine();
                 }
             }
         }
 
-        private void DefineCommands(int countOfTopPlayers, List<Tuple<string, int>> topPlayersScores)
+        private void DefineCommands(List<Tuple<string, int>> topPlayersScores)
         {
-            this.TopCommand = new TopCommand(countOfTopPlayers, topPlayersScores);
+            this.TopCommand = new TopCommand(topPlayersScores);
             this.ExitCommand = new ExitCommand(this);
             this.RestartCommand = new RestartCommand(this);
         }
@@ -247,13 +242,13 @@ namespace GameFifteenVersionSeven
         private void AddNewTopPlayer(string inputOfPlayerName)
         {
             topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, this.CountTotalMoves));
-            countOfTopPlayers = topPlayersScores.Count;
+            //countOfTopPlayers = topPlayersScores.Count;
             topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
-            if (countOfTopPlayers == 4)
+            if (topPlayersScores.Count == 4)
             {
                 topPlayersScores.RemoveAt(3);
-                countOfTopPlayers = topPlayersScores.Count;
+                //countOfTopPlayers = topPlayersScores.Count;
             }
         }
     }

@@ -23,9 +23,9 @@
         /// </summary>
         /// <param name="countOfTopPlayers"></param>
         /// <param name="topPlayersScores"></param>
-        public TopCommand(int countOfTopPlayers, List<Tuple<string, int>> topPlayersScores)
+        public TopCommand(List<Tuple<string, int>> topPlayersScores)
         {
-            this.CountTopPlayers = countOfTopPlayers;
+            this.CountTopPlayers = topPlayersScores.Count;
             this.TopPlayersScores = topPlayersScores;
 
         }
@@ -35,7 +35,7 @@
         /// </summary>
         public void Execute()
         {
-            ConsolePrinter.PrintScoreboard(this.CountTopPlayers, this.TopPlayersScores);
+            ConsolePrinter.PrintScoreboard(this.TopPlayersScores);
 
             Console.WriteLine();
         }

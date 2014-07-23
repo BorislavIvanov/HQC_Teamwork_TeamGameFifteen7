@@ -52,8 +52,9 @@
         /// </summary>
         /// <param name="countOfTopPlayers">Count of top players.</param>
         /// <param name="topPlayersScores">Array of top scores players.</param>
-        internal static void PrintScoreboard(int countOfTopPlayers, List<Tuple<string, int>> topPlayersScores)
+        internal static void PrintScoreboard(List<Tuple<string, int>> topPlayersScores)
         {
+            int countOfTopPlayers = topPlayersScores.Count;
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nScoreboard:");
 
