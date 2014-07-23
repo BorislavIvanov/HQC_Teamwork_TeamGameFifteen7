@@ -24,6 +24,7 @@
         /// </summary>
         public void Execute()
         {
+            this.GameEngine.IsGameRestart = true;
             this.GameEngine.StartNewGame();
         }
     }

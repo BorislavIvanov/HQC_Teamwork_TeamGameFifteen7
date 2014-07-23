@@ -37,7 +37,7 @@
                 writer.Flush();
 
                 string result = writer.GetStringBuilder().ToString();
-                string expected = " -------------\r\n|  1  2  3  4 |\r\n|  5  6  7  8 |\r\n|  9 10 11 12 |\r\n| 13 14 15    |\r\n";
+                string expected = " -------------\r\n|  1  2  3  4 |\r\n|  5  6  7  8 |\r\n|  9 10 11 12 |\r\n| 13 14 15    |\r\n -------------\r\n";
                 Assert.AreEqual(expected, result);
             }
         }

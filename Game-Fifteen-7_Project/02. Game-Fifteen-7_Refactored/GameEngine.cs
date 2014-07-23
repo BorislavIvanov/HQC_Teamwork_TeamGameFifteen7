@@ -23,7 +23,7 @@
             this.Player = player;
             this.PuzzleField = PuzzleField.GetInstance(MatrixSize); //using Singleton design pattern
             this.CommandManager = new CommandManager();
-            this.PuzzleFieldManager=new PuzzleFieldManager(this.PuzzleField);
+            this.PuzzleFieldManager = new PuzzleFieldManager(this.PuzzleField);
             this.ShuffleStrategy = new RandomShuffle();
             this.IsGameOver = false;
         }
@@ -39,6 +39,8 @@
         public PuzzleField PuzzleField { get; set; }
 
         public bool IsGameOver { get; set; }
+
+        public bool IsGameRestart { get; set; }
 
         //public int CountTotalMoves { get; set; }
 
@@ -61,6 +63,8 @@
             {
                 //this.CountTotalMoves = 0;
 
+                this.IsGameRestart = false;
+
                 this.ShuffleStrategy.Shuffle(this.PuzzleFieldManager);
 
                 ConsolePrinter.PrintWelcomeMessage();
@@ -69,7 +73,7 @@
 
                 bool isGameWon = this.IsPuzzleSolved();
 
-                while (!isGameWon)
+                while (!isGameWon && !this.IsGameRestart)
                 {
                     Console.Write("Enter a number to move: ");
                     string inputCommand = Console.ReadLine();
