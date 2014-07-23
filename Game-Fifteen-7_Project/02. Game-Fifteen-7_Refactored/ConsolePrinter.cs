@@ -51,10 +51,10 @@
         /// This method print the scoreboard in console.
         /// </summary>
         /// <param name="countOfTopPlayers">Count of top players.</param>
-        /// <param name="topPlayersScores">Array of top scores players.</param>
-        internal static void PrintScoreboard(List<Player> topPlayersScores)
+        /// <param name="topPlayers">Array of top scores players.</param>
+        internal static void PrintScoreboard(List<Player> topPlayers)
         {
-            int countOfTopPlayers = topPlayersScores.Count;
+            int countOfTopPlayers = topPlayers.Count;
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nScoreboard:");
 
@@ -62,7 +62,11 @@
             {
                 for (int i = 0; i <= countOfTopPlayers - 1; i++)
                 {
-                    Console.WriteLine("{0} by {1}", topPlayersScores[i].Name, topPlayersScores[i].TotalMoves);
+                    Player currentPlayer = new Adapter();
+                    currentPlayer.Name = topPlayers[i].Name;
+                    currentPlayer.TotalMoves = topPlayers[i].TotalMoves;
+                    currentPlayer.Print();
+                    //Console.WriteLine("{0} by {1}", topPlayersScores[i].Name, topPlayersScores[i].TotalMoves);
                 }
             }
             else

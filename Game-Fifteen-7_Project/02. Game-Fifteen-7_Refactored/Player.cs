@@ -25,5 +25,9 @@ namespace GameFifteenVersionSeven
 
         public string Name { get; set; }
         public int TotalMoves { get; set; }
+
+        public virtual void Print() //To implement Adapter design pattern
+        {
+        }
     }
 }
