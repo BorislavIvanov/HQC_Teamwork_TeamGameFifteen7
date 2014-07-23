@@ -51,6 +51,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConsolePrinterTests.cs" />
+    <Compile Include="GameEngineClassTests.cs" />
+    <Compile Include="ProgramClassTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CellClassTests.cs" />
     <Compile Include="AllComandsTestsUsingCommandManager.cs" />
