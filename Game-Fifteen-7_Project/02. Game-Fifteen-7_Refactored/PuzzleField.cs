@@ -1,5 +1,6 @@
 ﻿namespace GameFifteenVersionSeven
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -7,6 +8,9 @@
     /// </summary>
     public class PuzzleField
     {
+        private int initialValue;
+        private int matrixSize;
+
         /// <summary>
         /// Initializes a new instance of the PuzzleField class.
         /// </summary>
@@ -23,12 +27,44 @@
         /// <summary>
         /// Gets or sets the Initial value of puzzle field.
         /// </summary>
-        public int InitialValue { get; set; }
+        public int InitialValue
+        {
+            get
+            {
+                return this.initialValue;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("The initial value must be a positive integer");
+                }
+
+                this.initialValue = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the matrix size of puzzle field.
         /// </summary>
-        public int MatrixSize { get; set; }
+        public int MatrixSize
+        {
+            get
+            {
+                return this.matrixSize;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("The matrix size must be a positive integer");
+                }
+
+                this.matrixSize = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the elements in puzzle field body.
@@ -45,7 +81,7 @@
                 return this.FindEmptyCell();
             }
 
-            private set
+            set
             {
             }
         }
@@ -62,7 +98,7 @@
             {
                 for (int col = 0; col < this.MatrixSize; col++)
                 {
-                    // Protoype design pattern.
+                    // Prototype design pattern.
                     Cell currentCell = singleCell.Clone() as Cell;
 
                     if (currentValue == this.MatrixSize * this.MatrixSize)
