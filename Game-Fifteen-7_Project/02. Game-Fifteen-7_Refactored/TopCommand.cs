@@ -8,6 +8,8 @@
     /// </summary>
     public class TopCommand : ICommand // Command design pattern.
     {
+        private GameEngine testEngine;
+
         /// <summary>
         /// Gets or sets the count of top players.
         /// </summary>
