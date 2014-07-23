@@ -3,6 +3,7 @@
     using System;
 
     // Prototype design pattern.
+
     /// <summary>
     /// Cell object.
     /// </summary>
@@ -28,6 +29,7 @@
                 {
                     throw new ArgumentException("The content must be a positive integer!");
                 }
+
                 this.content = value;
             }
         }
@@ -48,6 +50,7 @@
                 {
                     throw new ArgumentException("The number of row must be a positive integer!");
                 }
+
                 this.row = value;
             }
         }
@@ -68,6 +71,7 @@
                 {
                     throw new ArgumentException("The number of column must be a positive integer!");
                 }
+
                 this.col = value;
             }
         }

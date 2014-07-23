@@ -1,7 +1,5 @@
 ﻿namespace GameFifteenVersionSevenTests
 {
-    using System;
-    using GameFifteenVersionSeven;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

@@ -8,7 +8,15 @@
     /// </summary>
     public class TopCommand : ICommand // Command design pattern.
     {
-        private GameEngine testEngine;
+        /// <summary>
+        /// Initialize a new instance of the TopCommand class
+        /// </summary>
+        /// <param name="topPlayersScores"></param>
+        public TopCommand(List<Tuple<string, int>> topPlayersScores)
+        {
+            this.CountTopPlayers = topPlayersScores.Count;
+            this.TopPlayersScores = topPlayersScores;
+        }
 
         /// <summary>
         /// Gets or sets the count of top players.
@@ -18,19 +26,7 @@
         /// <summary>
         /// Gets of sets the top scores players.
         /// </summary>
-        public List<Tuple<string,int>> TopPlayersScores { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="countOfTopPlayers"></param>
-        /// <param name="topPlayersScores"></param>
-        public TopCommand(List<Tuple<string, int>> topPlayersScores)
-        {
-            this.CountTopPlayers = topPlayersScores.Count;
-            this.TopPlayersScores = topPlayersScores;
-
-        }
+        public List<Tuple<string, int>> TopPlayersScores { get; set; }
 
         /// <summary>
         /// This method execute the top command.

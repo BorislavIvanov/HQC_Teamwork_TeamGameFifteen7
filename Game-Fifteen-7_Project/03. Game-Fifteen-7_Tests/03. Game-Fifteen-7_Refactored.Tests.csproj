@@ -52,7 +52,8 @@
   <ItemGroup>
     <Compile Include="ConsolePrinterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CellClassTest.cs" />
+    <Compile Include="CellClassTests.cs" />
+    <Compile Include="AllComandsTestsUsingCommandManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\02. Game-Fifteen-7_Refactored\02. Game-Fifteen-7_Refactored.csproj">

@@ -8,6 +8,7 @@
     public class RandomShuffle : ShuffleStrategy // Strategy design pattern.
     {
         private const int NumberOfShuffling = 3;
+
         /// <summary>
         /// This method shuffle all cells in PuzzleField object.
         /// </summary>
@@ -29,7 +30,6 @@
                         selectedCell.Row = puzzleField.EmptyCell.Row - 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
-
                     else
                     {
                         randomNumber++;
@@ -44,7 +44,6 @@
                         selectedCell.Col = puzzleField.EmptyCell.Col + 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
-
                     else
                     {
                         randomNumber++;
@@ -53,7 +52,6 @@
 
                 if (randomNumber == 2)
                 {
-
                     selectedCell.Col = puzzleField.EmptyCell.Col;
                     if (puzzleField.EmptyCell.Row < puzzleField.MatrixSize - 1)
                     {
@@ -74,12 +72,6 @@
                         selectedCell.Col = puzzleField.EmptyCell.Col - 1;
                         this.RearrangePuzzleField(puzzleField, selectedCell);
                     }
-                    //selectedCell.Col = puzzleField.EmptyCell.Col - 1;
-
-                    //if (this.IsCellInPuzzleField(selectedCell, puzzleField))
-                    //{
-                    //    this.RearrangePuzzleField(puzzleField, selectedCell);
-                    //}
                 }
             }
         }
@@ -91,23 +83,12 @@
         /// <param name="selectedCell">Cell for position change.</param>
         private void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
         {
-            int selectedCellFieldIndex = selectedCell.Col + selectedCell.Row * puzzleField.MatrixSize;
+            int selectedCellFieldIndex = selectedCell.Col + (selectedCell.Row * puzzleField.MatrixSize);
             selectedCell = puzzleField.Body[selectedCellFieldIndex];
 
             int emptySpaceCell = puzzleField.EmptyCell.Content;
             puzzleField.EmptyCell.Content = selectedCell.Content;
             selectedCell.Content = emptySpaceCell;
         }
-
-        /// <summary>
-        /// This method validate the cell of FieldPuzzle.
-        /// </summary>
-        /// <param name="selectedCell">The selected cell.</param>
-        /// <param name="puzzleField">The field with cells.</param>
-        /// <returns>Returns "true" i the cell is in game field.</returns>
-        //private bool IsCellInPuzzleField(Cell selectedCell, PuzzleField puzzleField)
-        //{
-        //    return selectedCell.Row >= 0 && selectedCell.Row < puzzleField.MatrixSize && selectedCell.Col >= 0 && selectedCell.Col < puzzleField.MatrixSize;
-        //}
     }
 }

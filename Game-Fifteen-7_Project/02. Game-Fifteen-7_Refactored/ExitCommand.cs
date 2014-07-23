@@ -13,6 +13,7 @@
         }
 
         public GameEngine GameEngine { get; set; }
+
         /// <summary>
         /// This method execute the command.
         /// </summary>

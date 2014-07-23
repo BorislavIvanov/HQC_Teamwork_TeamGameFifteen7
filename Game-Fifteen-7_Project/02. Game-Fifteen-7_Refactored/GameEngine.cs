@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace GameFifteenVersionSeven
+﻿namespace GameFifteenVersionSeven
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +11,14 @@ namespace GameFifteenVersionSeven
         private const int MatrixSize = 4;
         private const int InitialValue = 0;
 
+        /// <summary>
+        /// Array of top players.
+        /// </summary>
+        private static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
+
+        /// <summary>
+        /// Initialize a new instance of the GameEngine class
+        /// </summary>
         public GameEngine()
         {
             this.PuzzleField = new PuzzleField(MatrixSize, InitialValue);
@@ -31,11 +37,6 @@ namespace GameFifteenVersionSeven
 
         public int CountTotalMoves { get; set; }
 
-        /// <summary>
-        /// Array of top players.
-        /// </summary>
-        private static List<Tuple<string, int>> topPlayersScores = new List<Tuple<string, int>>();
-
         // Command design pattern.
         public ICommand TopCommand { get; set; }
 
@@ -49,7 +50,7 @@ namespace GameFifteenVersionSeven
         public void StartTheGame()
         {
             // Command design pattern.
-            DefineCommands(topPlayersScores);
+            this.DefineCommands(topPlayersScores);
 
             while (!this.IsGameOver)
             {
@@ -61,21 +62,21 @@ namespace GameFifteenVersionSeven
 
                 ConsolePrinter.PrintTheGameField(this.PuzzleField);
 
-                bool isGameWon = IsPuzzleSolved();
+                bool isGameWon = this.IsPuzzleSolved();
 
                 while (!isGameWon)
                 {
                     Console.Write("Enter a number to move: ");
                     string inputCommand = Console.ReadLine();
 
-                    ExecuteTheGameCommand(inputCommand);
+                    this.ExecuteTheGameCommand(inputCommand);
 
                     if (this.IsGameOver)
                     {
                         break;
                     }
 
-                    isGameWon = IsPuzzleSolved();
+                    isGameWon = this.IsPuzzleSolved();
                 }
 
                 if (isGameWon)
@@ -84,20 +85,13 @@ namespace GameFifteenVersionSeven
 
                     string inputOfPlayerName = Console.ReadLine();
 
-                    AddNewTopPlayer(inputOfPlayerName);
+                    this.AddNewTopPlayer(inputOfPlayerName);
 
                     ConsolePrinter.PrintScoreboard(topPlayersScores);
 
                     Console.WriteLine();
                 }
             }
-        }
-
-        private void DefineCommands(List<Tuple<string, int>> topPlayersScores)
-        {
-            this.TopCommand = new TopCommand(topPlayersScores);
-            this.ExitCommand = new ExitCommand(this);
-            this.RestartCommand = new RestartCommand(this);
         }
 
         /// <summary>
@@ -110,6 +104,13 @@ namespace GameFifteenVersionSeven
             this.ShuffleStrategy.Shuffle(this.PuzzleField);
 
             ConsolePrinter.PrintTheGameField(this.PuzzleField);
+        }
+
+        private void DefineCommands(List<Tuple<string, int>> topPlayersScores)
+        {
+            this.TopCommand = new TopCommand(topPlayersScores);
+            this.ExitCommand = new ExitCommand(this);
+            this.RestartCommand = new RestartCommand(this);
         }
 
         /// <summary>
@@ -153,7 +154,7 @@ namespace GameFifteenVersionSeven
                 }
             }
 
-            bool isTheMoveAreLegal = CheckIsTheMoveAreLegal(selectedCell);
+            bool isTheMoveAreLegal = this.CheckIsTheMoveAreLegal(selectedCell);
 
             if (!isTheMoveAreLegal)
             {
@@ -183,7 +184,7 @@ namespace GameFifteenVersionSeven
             {
                 if (selectedNumber >= (this.PuzzleField.InitialValue + 1) && selectedNumber <= (this.PuzzleField.MatrixSize * this.PuzzleField.MatrixSize))
                 {
-                    MoveTheNumberOfField(selectedNumber);
+                    this.MoveTheNumberOfField(selectedNumber);
                 }
                 else
                 {
@@ -194,7 +195,7 @@ namespace GameFifteenVersionSeven
             {
                 if (inputCommand == "exit")
                 {
-                    this.CommandManager.Proceed(ExitCommand);
+                    this.CommandManager.Proceed(this.ExitCommand);
                 }
                 else
                 {
@@ -242,13 +243,11 @@ namespace GameFifteenVersionSeven
         private void AddNewTopPlayer(string inputOfPlayerName)
         {
             topPlayersScores.Add(new Tuple<string, int>(inputOfPlayerName, this.CountTotalMoves));
-            //countOfTopPlayers = topPlayersScores.Count;
             topPlayersScores.Sort((a, b) => a.Item2.CompareTo(b.Item2));
 
             if (topPlayersScores.Count == 4)
             {
                 topPlayersScores.RemoveAt(3);
-                //countOfTopPlayers = topPlayersScores.Count;
             }
         }
     }
