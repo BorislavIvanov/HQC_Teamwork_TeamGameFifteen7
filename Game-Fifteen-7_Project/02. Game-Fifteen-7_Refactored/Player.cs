@@ -13,16 +13,6 @@ namespace GameFifteenVersionSeven
             this.TotalMoves = 0;
         }
 
-        //public static readonly Player instance = new Player();
-
-        //public static Player Instance
-        //{
-        //    get
-        //    {
-        //        return instance;
-        //    }
-        //}
-
         public string Name { get; set; }
         public int TotalMoves { get; set; }
 

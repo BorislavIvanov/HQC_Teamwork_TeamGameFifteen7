@@ -6,10 +6,21 @@
     /// <summary>
     /// PuzzleField class.
     /// </summary>
-    public class PuzzleField //implementation of Singleton design pattern
+    public class PuzzleField // implementation of Singleton design pattern
     {
+        /// <summary>
+        /// Private variable of MatrixSize.
+        /// </summary>
         private int matrixSize;
+
+        /// <summary>
+        /// Private object with null value.
+        /// </summary>
         private static PuzzleField instance = null;
+
+        /// <summary>
+        /// Private object of mutex.
+        /// </summary>
         private static Object mutex = new Object();
 
         /// <summary>
@@ -23,42 +34,6 @@
             this.Body = new List<Cell>();
             this.FillPuzzleBody();
         }
-
-        public static PuzzleField GetInstance(int size)  //implementation of Singleton design pattern
-        {
-            if (instance == null)
-            {
-                lock (mutex) // lock the object because of possible two threads requests
-                {
-                    if (instance == null)
-                    {
-                        instance = new PuzzleField(size);
-                    }
-                }
-            }
-
-            return instance;
-        }
-        ///// <summary>
-        ///// Gets or sets the Initial value of puzzle field.
-        ///// </summary>
-        //public int InitialValue
-        //{
-        //    get
-        //    {
-        //        return this.initialValue;
-        //    }
-
-        //    set
-        //    {
-        //        if (value < 0)
-        //        {
-        //            throw new ArgumentException("The initial value must be a positive integer");
-        //        }
-
-        //        this.initialValue = value;
-        //    }
-        //}
 
         /// <summary>
         /// Gets or sets the matrix size of puzzle field.
@@ -99,6 +74,27 @@
             set
             {
             }
+        }
+
+        /// <summary>
+        /// This method make a single instance of PuzzleField.
+        /// </summary>
+        /// <param name="size">The size of PuzzleField.</param>
+        /// <returns>Returns single instance of PuzzleField.</returns>
+        public static PuzzleField GetInstance(int size)  // implementation of Singleton design pattern
+        {
+            if (instance == null)
+            {
+                lock (mutex) // lock the object because of possible two threads requests
+                {
+                    if (instance == null)
+                    {
+                        instance = new PuzzleField(size);
+                    }
+                }
+            }
+
+            return instance;
         }
 
         /// <summary>

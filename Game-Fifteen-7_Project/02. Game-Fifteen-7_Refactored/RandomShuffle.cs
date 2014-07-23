@@ -76,20 +76,5 @@
                 }
             }
         }
-
-        /// <summary>
-        /// This method change the positions of two cells.
-        /// </summary>
-        /// <param name="puzzleField">The field with cells.</param>
-        /// <param name="selectedCell">Cell for position change.</param>
-        //private void RearrangePuzzleField(PuzzleField puzzleField, Cell selectedCell)
-        //{
-        //    int selectedCellFieldIndex = selectedCell.Col + (selectedCell.Row * puzzleField.MatrixSize);
-        //    selectedCell = puzzleField.Body[selectedCellFieldIndex];
-
-        //    int emptySpaceCell = puzzleField.EmptyCell.Content;
-        //    puzzleField.EmptyCell.Content = selectedCell.Content;
-        //    selectedCell.Content = emptySpaceCell;
-        //}
     }
 }

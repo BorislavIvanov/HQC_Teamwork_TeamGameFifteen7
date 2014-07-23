@@ -7,11 +7,18 @@
     /// </summary>
     public class ExitCommand : ICommand // Command design pattern.
     {
+        /// <summary>
+        /// This method get the instance of current engine.
+        /// </summary>
+        /// <param name="engine">Currently initialised engine.</param>
         public ExitCommand(GameEngine engine)
         {
             this.GameEngine = engine;
         }
 
+        /// <summary>
+        /// Gets or sets GameEngine.
+        /// </summary>
         public GameEngine GameEngine { get; set; }
 
         /// <summary>

@@ -8,6 +8,9 @@
     /// </summary>
     public class GameEngine // Facade design pattern.
     {
+        /// <summary>
+        /// Constant variable of Matrix Size.
+        /// </summary>
         private const int MatrixSize = 4;
 
         /// <summary>
@@ -21,35 +24,62 @@
         public GameEngine(Player player)
         {
             this.Player = player;
-            this.PuzzleField = PuzzleField.GetInstance(MatrixSize); //using Singleton design pattern
+            this.PuzzleField = PuzzleField.GetInstance(MatrixSize); // using Singleton design pattern
             this.CommandManager = new CommandManager();
             this.PuzzleFieldManager = new PuzzleFieldManager(this.PuzzleField);
             this.ShuffleStrategy = new RandomShuffle();
             this.IsGameOver = false;
         }
 
+        /// <summary>
+        /// Gets or sets the instance of Player.
+        /// </summary>
         public Player Player { get; set; }
 
+        /// <summary>
+        /// Gets or sets the instance CommandManager.
+        /// </summary>
         public CommandManager CommandManager { get; set; }
 
+        /// <summary>
+        /// Gets or sets the instance of PuzzleFieldManager.
+        /// </summary>
         public PuzzleFieldManager PuzzleFieldManager { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ShuffleStrategy.
+        /// </summary>
         public ShuffleStrategy ShuffleStrategy { get; set; }
 
+        /// <summary>
+        /// Gets or sets the PuzzleField.
+        /// </summary>
         public PuzzleField PuzzleField { get; set; }
 
+        /// <summary>
+        /// Gets or sets the IsGameOver.
+        /// </summary>
         public bool IsGameOver { get; set; }
 
+        /// <summary>
+        /// Gets or sets the IsGameRestart.
+        /// </summary>
         public bool IsGameRestart { get; set; }
 
-        //public int CountTotalMoves { get; set; }
+        /// <summary>
+        /// Gets or sets TopCommand.
+        /// </summary>
+        public ICommand TopCommand { get; set; } // Command design pattern.
 
-        // Command design pattern.
-        public ICommand TopCommand { get; set; }
+        /// <summary>
+        /// Gets or sets ExitCommand.
+        /// </summary>
+        public ICommand ExitCommand { get; set; } // Command design pattern.
 
-        public ICommand ExitCommand { get; set; }
-
-        public ICommand RestartCommand { get; set; }
+        /// <summary>
+        /// Gets or sets RestartCommand.
+        /// </summary>
+        public ICommand RestartCommand { get; set; } // Command design pattern.
 
         /// <summary>
         /// This method start the game.
@@ -61,8 +91,6 @@
 
             while (!this.IsGameOver)
             {
-                //this.CountTotalMoves = 0;
-
                 this.IsGameRestart = false;
 
                 this.ShuffleStrategy.Shuffle(this.PuzzleFieldManager);
@@ -115,10 +143,12 @@
             this.Player.TotalMoves = 0;
 
             this.ShuffleStrategy.Shuffle(this.PuzzleFieldManager);
-
-            //ConsolePrinter.PrintTheGameField(this.PuzzleField);
         }
 
+        /// <summary>
+        /// This method defined commands in the class.
+        /// </summary>
+        /// <param name="topPlayersScores">Top Scores List of the players.</param>
         private void DefineCommands(List<Player> topPlayersScores)
         {
             this.TopCommand = new TopCommand(topPlayersScores);
@@ -155,7 +185,7 @@
         /// <param name="number">Selected number of field from player.</param>
         private void MoveTheNumberOfField(int number)
         {
-            Cell selectedCell = this.PuzzleFieldManager.FindCellByItsContent(number); //replace old for iteration
+            Cell selectedCell = this.PuzzleFieldManager.FindCellByItsContent(number); // replace old for iteration
 
             bool isTheMoveAreLegal = this.CheckIsTheMoveAreLegal(selectedCell);
 

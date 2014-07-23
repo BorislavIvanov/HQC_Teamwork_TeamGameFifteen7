@@ -66,7 +66,6 @@
                     currentPlayer.Name = topPlayers[i].Name;
                     currentPlayer.TotalMoves = topPlayers[i].TotalMoves;
                     currentPlayer.Print();
-                    //Console.WriteLine("{0} by {1}", topPlayersScores[i].Name, topPlayersScores[i].TotalMoves);
                 }
             }
             else

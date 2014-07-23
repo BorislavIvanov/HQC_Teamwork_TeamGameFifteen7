@@ -2,15 +2,24 @@
 {
     using System;
 
-    // Prototype design pattern.
-
     /// <summary>
     /// Cell object.
     /// </summary>
-    public class Cell : ICell, ICloneable
+    public class Cell : ICell, ICloneable // Prototype design pattern.
     {
+        /// <summary>
+        /// Private variable of Cell content.
+        /// </summary>
         private int content;
+
+        /// <summary>
+        /// Private variable of Cell row position.
+        /// </summary>
         private int row;
+
+        /// <summary>
+        /// Private variable of Cell colum position.
+        /// </summary>
         private int col;
 
         /// <summary>
